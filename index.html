@@ -1716,6 +1716,93 @@ function saveScanResult() {
   save(); goScreen('screen-licenses'); initHome();
 }
 
+
+// ── EDIT LICENSES SCREEN ──
+function renderEditLicenses() {
+  var el = document.getElementById('edit-licenses-list');
+  if (!el) return;
+  if (!appData.licenses.length) {
+    el.innerHTML = '<div style="color:#1e3812;font-family:var(--font-mono);font-size:14px;font-weight:700;text-align:center;padding:3rem;letter-spacing:2px">NO LICENSES TO EDIT</div>';
+    return;
+  }
+  el.innerHTML = appData.licenses.map(function(l) {
+    var f = getFirearm(l.firearmId);
+    var days = daysUntil(l.expiry);
+    var expired = days <= 0;
+    var soon = days > 0 && days <= 180;
+    var badge = expired ? '<span class="badge badge-red">EXPIRED</span>' : (soon ? '<span class="badge badge-amber">'+days+'D LEFT</span>' : '<span class="badge badge-green">'+days+'D LEFT</span>');
+    var fname = ((f.make||'') + ' ' + (f.model||'')).trim() || 'UNKNOWN';
+    return '<div class="item-card" style="margin-bottom:14px">'
+      + '<div class="item-row" style="margin-bottom:6px"><div class="item-title">'+fname+'</div>'+badge+'</div>'
+      + '<div class="item-sub" style="margin-bottom:12px">'+(f.caliber||'')+(l.num?' · S/N: '+l.num:'')+'</div>'
+      + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">'
+      + '<button onclick="editLicense(\'' + l.id + '\')" style="padding:18px;background:#2a5018;border:none;border-radius:6px;font-family:var(--font-mono);font-size:15px;font-weight:700;letter-spacing:2px;color:#fff;cursor:pointer">EDIT</button>'
+      + '<button onclick="confirmDeleteLicense(\'' + l.id + '\',\'' + fname.replace(/'/g, '') + '\')" style="padding:18px;background:#c0392b;border:none;border-radius:6px;font-family:var(--font-mono);font-size:15px;font-weight:700;letter-spacing:2px;color:#fff;cursor:pointer">DELETE</button>'
+      + '</div></div>';
+  }).join('');
+}
+
+function confirmDeleteLicense(id, name) {
+  document.getElementById('delete-confirm-name').textContent = name || 'this license';
+  document.getElementById('delete-confirm-id').value = id;
+  document.getElementById('delete-confirm-overlay').style.display = 'flex';
+}
+
+function closeDeleteConfirm() {
+  document.getElementById('delete-confirm-overlay').style.display = 'none';
+}
+
+function doDeleteLicense() {
+  var id = document.getElementById('delete-confirm-id').value;
+  closeDeleteConfirm();
+  var lic = appData.licenses.find(function(l){ return l.id === id; });
+  if (lic && lic.firearmId) {
+    appData.firearms = appData.firearms.filter(function(f){ return f.id !== lic.firearmId; });
+    appData.loads = appData.loads.filter(function(l){ return l.firearmId !== lic.firearmId; });
+  }
+  appData.licenses = appData.licenses.filter(function(l){ return l.id !== id; });
+  save(); initHome();
+  if (!appData.licenses.length) { goScreen('screen-licenses'); } else { renderEditLicenses(); }
+}
+
+function editLicense(id) {
+  var l = appData.licenses.find(function(x){ return x.id === id; });
+  if (!l) return;
+  populateFirearmSelects();
+  document.getElementById('li-num').value = l.num || '';
+  document.getElementById('li-firearm').value = l.firearmId || '';
+  document.getElementById('li-issue').value = l.issue || '';
+  document.getElementById('li-expiry').value = l.expiry || '';
+  document.getElementById('li-section').value = l.section || '';
+  document.getElementById('li-comp-num').value = l.compNum || '';
+  document.getElementById('li-comp-issue').value = l.compIssue || '';
+  document.getElementById('li-comp-expiry').value = l.compExpiry || '';
+  window._editingLicenseId = id;
+  var btn = document.querySelector('#modal-add-license .btn-primary');
+  if (btn) { btn.textContent = 'UPDATE LICENSE'; btn.onclick = saveEditLicense; }
+  goScreen('modal-add-license');
+}
+
+function saveEditLicense() {
+  var id = window._editingLicenseId;
+  if (!id) return;
+  var idx = appData.licenses.findIndex(function(l){ return l.id === id; });
+  if (idx === -1) return;
+  appData.licenses[idx] = Object.assign({}, appData.licenses[idx], {
+    num: document.getElementById('li-num').value,
+    firearmId: document.getElementById('li-firearm').value,
+    issue: document.getElementById('li-issue').value,
+    expiry: document.getElementById('li-expiry').value,
+    section: document.getElementById('li-section').value,
+    compNum: document.getElementById('li-comp-num').value,
+    compIssue: document.getElementById('li-comp-issue').value,
+    compExpiry: document.getElementById('li-comp-expiry').value
+  });
+  window._editingLicenseId = null;
+  var btn = document.querySelector('#modal-add-license .btn-primary');
+  if (btn) { btn.textContent = 'SAVE'; btn.onclick = addLicense; }
+  save(); goScreen('screen-licenses');
+}
 // ── SERVICE WORKER ──
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js').catch(()=>{});
