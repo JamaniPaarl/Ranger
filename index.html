@@ -1067,12 +1067,22 @@ select option { background: var(--bg-card); }
   <div class="topbar">
     <div class="topbar-back" onclick="goScreen('screen-home')">&#9664; BACK</div>
     <div class="topbar-title">LICENSES</div>
-    <div class="topbar-action" onclick="goScreen('modal-scan-license')">SCAN</div>
+    <div class="topbar-action" onclick="goScreen('screen-edit-licenses')">EDIT</div>
   </div>
   <div class="content-scroll">
     <div id="licenses-list"></div>
     <button class="add-btn" onclick="goScreen('modal-add-license');populateFirearmSelects()">+ ADD MANUALLY</button>
   </div>
+</div>
+
+<!-- ═══ EDIT LICENSES ═══ -->
+<div id="screen-edit-licenses" class="screen">
+  <div class="topbar">
+    <div class="topbar-back" onclick="goScreen('screen-licenses')">&#9664; BACK</div>
+    <div class="topbar-title">EDIT LICENSE</div>
+    <div></div>
+  </div>
+  <div class="content-scroll" id="edit-licenses-list"></div>
 </div>
 
 <!-- ═══ RELOADING ═══ -->
@@ -1370,6 +1380,7 @@ function goScreen(id) {
   document.getElementById(id).classList.add('active');
   if (id === 'screen-firearms') renderFirearms();
   if (id === 'screen-licenses') renderLicenses();
+  if (id === 'screen-edit-licenses') renderEditLicenses();
   if (id === 'screen-reloading') renderReloading();
   if (id === 'screen-range') initRange();
   if (id === 'screen-equipment') renderEquipment();
