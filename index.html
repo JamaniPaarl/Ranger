@@ -10,7 +10,7 @@
 <meta name="theme-color" content="#4a7c2f">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
-<title>Ranger v8</title>
+<title>Ranger v9</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -909,7 +909,7 @@ select option { background: var(--bg-card); }
     </div>
     <div class="lock-title">RANGER</div>
     <div class="lock-subtitle">FIREARMS MANAGEMENT SYSTEM</div>
-    <div class="lock-subtitle" style="margin-top:6px;letter-spacing:2px;font-size:10px;opacity:0.7">VERSION 8</div>
+    <div class="lock-subtitle" style="margin-top:6px;letter-spacing:2px;font-size:10px;opacity:0.7">VERSION 9</div>
   </div>
   <div class="lock-divider"></div>
   <div class="pin-label">ENTER ACCESS CODE</div>
@@ -1670,15 +1670,32 @@ function setDir(dir) {
 function calcCorr2() {
   const dist = parseFloat(document.getElementById('corr2-dist').value);
   const err = parseFloat(document.getElementById('corr2-err').value);
-  const dir = document.getElementById('corr2-dir').value;
-  if (isNaN(dist) || isNaN(err)) return;
-  const base = interpolate(getRefs(), dist);
-  if (base === null) { document.getElementById('corr2-result').textContent='—'; return; }
-  const cmPerMOA = 2.908 * (dist/100);
-  const adj = Math.round((err/cmPerMOA)/0.25)*0.25;
-  const corrected = dir==='low' ? base+adj : base-adj;
-  document.getElementById('corr2-result').textContent = corrected.toFixed(2);
-  document.getElementById('corr2-note').textContent = `BASE ${base.toFixed(2)} ${dir==='low'?'+':'-'} ${adj.toFixed(2)} CORRECTION`;
+  const dir = (typeof _corrDir !== 'undefined') ? _corrDir : 'low';
+  const resEl = document.getElementById('corr2-result');
+  const noteEl = document.getElementById('corr2-note');
+  if (isNaN(dist) || isNaN(err)) {
+    if (resEl) resEl.textContent = '—';
+    if (noteEl) noteEl.textContent = '';
+    return;
+  }
+  const refs = getRefs();
+  if (refs.length < 2) {
+    if (resEl) resEl.textContent = '—';
+    if (noteEl) noteEl.textContent = 'ADD AT LEAST 2 REFERENCE POINTS FIRST';
+    return;
+  }
+  const base = interpolate(refs, dist);
+  if (base === null) {
+    if (resEl) resEl.textContent = '—';
+    if (noteEl) noteEl.textContent = 'CANNOT CALCULATE';
+    return;
+  }
+  const cmPerMOA = 2.908 * (dist / 100);
+  const moaNeeded = err / cmPerMOA;
+  const adj = Math.round(moaNeeded / 0.25) * 0.25;
+  const corrected = dir === 'low' ? base + adj : base - adj;
+  if (resEl) resEl.textContent = corrected.toFixed(2);
+  if (noteEl) noteEl.textContent = 'BASE ' + base.toFixed(2) + (dir === 'low' ? ' + ' : ' − ') + adj.toFixed(2) + ' = ' + corrected.toFixed(2);
 }
 
 // ── EQUIPMENT ──
