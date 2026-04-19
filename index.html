@@ -1082,7 +1082,10 @@ select option { background: var(--bg-card); }
     <div class="topbar-title">EDIT LICENSE</div>
     <div></div>
   </div>
-  <div class="content-scroll" id="edit-licenses-list"></div>
+  <div class="content-scroll">
+    <div style="font-family:var(--font-mono);font-size:13px;font-weight:700;color:#1e3812;padding:0 0 14px;letter-spacing:1px">SELECT A LICENSE BELOW</div>
+    <div id="edit-licenses-list"></div>
+  </div>
 </div>
 
 <!-- ═══ RELOADING ═══ -->
@@ -1317,6 +1320,27 @@ select option { background: var(--bg-card); }
     <div class="form-actions">
       <button class="btn-secondary" onclick="goScreen('screen-equipment')">CANCEL</button>
       <button class="btn-primary" onclick="addEquip()">SAVE</button>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE CONFIRM OVERLAY -->
+<div id="delete-confirm-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9000;align-items:center;justify-content:center;padding:2rem">
+  <div style="background:#ffffff;border-radius:12px;padding:1.5rem;width:100%;max-width:320px;text-align:center">
+    <div style="font-family:var(--font-display);font-size:24px;letter-spacing:3px;color:#c0392b;margin-bottom:8px">DELETE</div>
+    <div style="font-family:var(--font-mono);font-size:13px;font-weight:700;color:#1e3812;margin-bottom:6px;letter-spacing:1px">THIS WILL PERMANENTLY REMOVE:</div>
+    <div id="delete-confirm-name" style="font-family:var(--font-cond);font-size:20px;font-weight:700;color:#0d1a06;margin:12px 0;text-transform:uppercase"></div>
+    <div style="font-family:var(--font-mono);font-size:12px;color:#c0392b;margin-bottom:20px;font-weight:700">INCLUDING ITS FIREARM AND LOAD DATA</div>
+    <input type="hidden" id="delete-confirm-id">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <button onclick="closeDeleteConfirm()"
+        style="padding:14px;background:#f0f2ec;border:1.5px solid #b8d4a0;border-radius:6px;font-family:var(--font-mono);font-size:13px;font-weight:700;letter-spacing:1px;color:#1e3812;cursor:pointer;text-transform:uppercase">
+        CANCEL
+      </button>
+      <button onclick="doDeleteLicense()"
+        style="padding:14px;background:#c0392b;border:none;border-radius:6px;font-family:var(--font-mono);font-size:13px;font-weight:700;letter-spacing:1px;color:#ffffff;cursor:pointer;text-transform:uppercase">
+        CONFIRM
+      </button>
     </div>
   </div>
 </div>
