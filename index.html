@@ -10,7 +10,7 @@
 <meta name="theme-color" content="#4a7c2f">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
-<title>Ranger v4</title>
+<title>Ranger v5</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -909,7 +909,7 @@ select option { background: var(--bg-card); }
     </div>
     <div class="lock-title">RANGER</div>
     <div class="lock-subtitle">FIREARMS MANAGEMENT SYSTEM</div>
-    <div class="lock-subtitle" style="margin-top:6px;letter-spacing:2px;font-size:10px;opacity:0.7">VERSION 4</div>
+    <div class="lock-subtitle" style="margin-top:6px;letter-spacing:2px;font-size:10px;opacity:0.7">VERSION 5</div>
   </div>
   <div class="lock-divider"></div>
   <div class="pin-label">ENTER ACCESS CODE</div>
@@ -1204,12 +1204,9 @@ select option { background: var(--bg-card); }
           <option>Section 16 – Dedicated sports shooter / hunter</option>
         </select>
       </div>
-      <div style="border-top:1px solid var(--border);margin:12px 0 16px;padding-top:14px">
-        <div class="section-label">COMPETENCY CERTIFICATE</div>
-        <div class="form-row"><label class="form-label">CERTIFICATE NUMBER</label><input id="sc-comp-num" placeholder="Competency cert #"></div>
-        <div class="form-row"><label class="form-label">COMPETENCY ISSUE DATE</label><input id="sc-comp-issue" type="date"></div>
-        <div class="form-row"><label class="form-label">COMPETENCY EXPIRY DATE</label><input id="sc-comp-expiry" type="date"></div>
-      </div>
+<input type="hidden" id="sc-comp-num" value="">
+      <input type="hidden" id="sc-comp-issue" value="">
+      <input type="hidden" id="sc-comp-expiry" value="">
       <div class="form-actions">
         <button class="btn-secondary" onclick="goScreen('screen-licenses')">CANCEL</button>
         <button class="btn-primary" onclick="saveScanResult()">SAVE LICENSE</button>
@@ -1228,7 +1225,7 @@ select option { background: var(--bg-card); }
   <div class="modal-wrap">
     <div class="form-row"><label class="form-label">FIREARM</label><input id="li-firearm-name" placeholder="e.g. Accuracy International AXMC"></div>
     <div class="form-row"><label class="form-label">CALIBER</label><input id="li-caliber" placeholder="e.g. 6.5 Creedmoor"></div>
-    <div class="form-row"><label class="form-label">SERIAL NUMBER</label><input id="li-num" placeholder="e.g. ABC123456"></div>
+    <div class="form-row"><label class="form-label">SERIAL NUMBER</label><input id="li-num" placeholder=""></div>
     <div class="form-row"><label class="form-label">ISSUE DATE</label><input id="li-issue" type="date"></div>
     <div class="form-row"><label class="form-label">EXPIRY DATE</label><input id="li-expiry" type="date"></div>
     <div class="form-row"><label class="form-label">SECTION (FIREARMS CONTROL ACT)</label>
@@ -1518,19 +1515,86 @@ function renderReloading() {
 // ── RANGE ──
 function initRange() {
   const sel = document.getElementById('range-firearm');
-  sel.innerHTML = appData.firearms.map(f => `<option value="${f.id}">${f.make} ${f.model} (${f.caliber})</option>`).join('');
+  if (!appData.firearms.length) {
+    sel.innerHTML = '<option value="">— NO FIREARMS REGISTERED —</option>';
+  } else {
+    sel.innerHTML = appData.firearms.map(f => `<option value="${f.id}">${f.make} ${f.model} (${f.caliber})</option>`).join('');
+  }
   renderRangeRefs();
 }
-function renderRangeRefs() {
-  const f = appData.firearms.find(x => x.id === document.getElementById('range-firearm').value);
-  const refs = f && f.scopeRefs ? f.scopeRefs : [];
-  document.getElementById('range-refs-display').innerHTML = refs.length
-    ? refs.map(r => `<span class="ref-chip">${r.dist}M → ${r.dial.toFixed(2)}</span>`).join('')
-    : '<span style="font-family:var(--font-mono);font-size:11px;color:var(--text-dim);letter-spacing:1px">NO REFERENCE POINTS SET</span>';
+
+function getCurrentFirearm() {
+  const sel = document.getElementById('range-firearm');
+  return sel ? appData.firearms.find(x => x.id === sel.value) : null;
 }
+
+function renderRangeRefs() {
+  const f = getCurrentFirearm();
+  if (!f) return;
+  const refs = f.scopeRefs || [];
+  const zero = f.scopeZero || '';
+
+  // Set zero field
+  const zeroEl = document.getElementById('range-zero');
+  if (zeroEl) zeroEl.value = zero;
+
+  // Render ref point rows
+  const listEl = document.getElementById('ref-points-list');
+  if (!listEl) return;
+  if (!refs.length) {
+    listEl.innerHTML = '<div style="font-family:var(--font-mono);font-size:12px;font-weight:600;color:#8aaa78;padding:8px 0;letter-spacing:1px">NO REFERENCE POINTS — ADD BELOW</div>';
+    return;
+  }
+  listEl.innerHTML = refs.map((r, i) => `
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
+      <input type="number" value="${r.dist}" onchange="updateRef(${i},'dist',this.value)" placeholder="DIST (M)" style="flex:1">
+      <span style="font-family:var(--font-mono);font-size:13px;font-weight:700;color:#1e3812">M →</span>
+      <input type="number" step="0.01" value="${r.dial}" onchange="updateRef(${i},'dial',this.value)" placeholder="DIAL" style="flex:1">
+      <button onclick="removeRef(${i})" style="padding:8px 12px;background:#fdecea;border:1px solid #f5a9a9;border-radius:4px;font-family:var(--font-mono);font-size:12px;font-weight:700;color:#c0392b;cursor:pointer">✕</button>
+    </div>`).join('');
+}
+
+function addRefPoint() {
+  const f = getCurrentFirearm();
+  if (!f) { alert('Please select a firearm first'); return; }
+  if (!f.scopeRefs) f.scopeRefs = [];
+  f.scopeRefs.push({ dist: 0, dial: 0 });
+  save();
+  renderRangeRefs();
+}
+
+function updateRef(i, field, val) {
+  const f = getCurrentFirearm();
+  if (!f || !f.scopeRefs || !f.scopeRefs[i]) return;
+  f.scopeRefs[i][field] = parseFloat(val) || 0;
+  save();
+}
+
+function removeRef(i) {
+  const f = getCurrentFirearm();
+  if (!f || !f.scopeRefs) return;
+  f.scopeRefs.splice(i, 1);
+  save();
+  renderRangeRefs();
+}
+
+function saveRangeRefs() {
+  const f = getCurrentFirearm();
+  if (!f) return;
+  const zeroEl = document.getElementById('range-zero');
+  if (zeroEl) { f.scopeZero = zeroEl.value; save(); }
+}
+
 function getRefs() {
-  const f = appData.firearms.find(x => x.id === document.getElementById('range-firearm').value);
-  return f && f.scopeRefs ? f.scopeRefs : [];
+  const f = getCurrentFirearm();
+  if (!f) return [];
+  const refs = f.scopeRefs ? [...f.scopeRefs] : [];
+  // Include zero point
+  const zero = parseFloat(f.scopeZero);
+  if (!isNaN(zero) && !refs.find(r => r.dist === zero)) {
+    refs.push({ dist: zero, dial: 0 });
+  }
+  return refs;
 }
 function interpolate(refs, dist) {
   if (!refs.length) return null;
