@@ -1225,8 +1225,9 @@ select option { background: var(--bg-card); }
     <div></div>
   </div>
   <div class="modal-wrap">
-    <div class="form-row"><label class="form-label">FIREARM SERIAL NUMBER</label><input id="li-num" placeholder="Gun serial number"></div>
-    <div class="form-row"><label class="form-label">FIREARM</label><select id="li-firearm"></select></div>
+    <div class="form-row"><label class="form-label">FIREARM MAKE &amp; MODEL</label><input id="li-firearm-name" placeholder="e.g. Accuracy International AXMC"></div>
+    <div class="form-row"><label class="form-label">CALIBER</label><input id="li-caliber" placeholder="e.g. 6.5 Creedmoor"></div>
+    <div class="form-row"><label class="form-label">SERIAL NUMBER</label><input id="li-num" placeholder="Gun serial number"></div>
     <div class="form-row"><label class="form-label">ISSUE DATE</label><input id="li-issue" type="date"></div>
     <div class="form-row"><label class="form-label">EXPIRY DATE</label><input id="li-expiry" type="date"></div>
     <div class="form-row"><label class="form-label">SECTION (FIREARMS CONTROL ACT)</label>
@@ -1617,18 +1618,48 @@ function addFirearm() {
   save(); goScreen('screen-firearms');
 }
 function addLicense() {
+  var firearmName = document.getElementById('li-firearm-name').value.trim();
+  var caliber = document.getElementById('li-caliber').value.trim();
+  var serial = document.getElementById('li-num').value.trim();
+  // Parse make and model from firearm name (first word = make, rest = model)
+  var parts = firearmName.split(' ');
+  var make = parts[0] || firearmName;
+  var model = parts.slice(1).join(' ') || '';
+  // Check if firearm with same serial already exists
+  var existingFirearm = serial ? appData.firearms.find(function(f){ return f.serial === serial; }) : null;
+  var firearmId;
+  if (existingFirearm) {
+    firearmId = existingFirearm.id;
+  } else {
+    firearmId = uid();
+    appData.firearms.push({
+      id: firearmId,
+      make: make,
+      model: model,
+      caliber: caliber,
+      serial: serial,
+      type: 'Rifle',
+      scopeRefs: []
+    });
+  }
   appData.licenses.push({
-    id:uid(),
-    num:document.getElementById('li-num').value,
-    firearmId:document.getElementById('li-firearm').value,
-    issue:document.getElementById('li-issue').value,
-    expiry:document.getElementById('li-expiry').value,
-    section:document.getElementById('li-section').value,
-    compNum:document.getElementById('li-comp-num').value,
-    compIssue:document.getElementById('li-comp-issue').value,
-    compExpiry:document.getElementById('li-comp-expiry').value
+    id: uid(),
+    num: serial,
+    firearmId: firearmId,
+    issue: document.getElementById('li-issue').value,
+    expiry: document.getElementById('li-expiry').value,
+    section: document.getElementById('li-section').value,
+    compNum: document.getElementById('li-comp-num').value,
+    compIssue: document.getElementById('li-comp-issue').value,
+    compExpiry: document.getElementById('li-comp-expiry').value
   });
-  save(); goScreen('screen-licenses');
+  // Clear form
+  document.getElementById('li-firearm-name').value = '';
+  document.getElementById('li-caliber').value = '';
+  document.getElementById('li-num').value = '';
+  document.getElementById('li-issue').value = '';
+  document.getElementById('li-expiry').value = '';
+  save(); goScreen('screen-licenses'); initHome();
 }
 function addLoad() {
   appData.loads.push({ id:uid(), firearmId:document.getElementById('ld-firearm').value, powder:document.getElementById('ld-powder').value, bulletMfr:document.getElementById('ld-bullet-mfr').value, bulletWt:document.getElementById('ld-bullet-wt').value, bulletType:document.getElementById('ld-bullet-type').value, charge:document.getElementById('ld-charge').value, primer:document.getElementById('ld-primer').value, notes:document.getElementById('ld-notes').value });
@@ -1768,9 +1799,10 @@ function doDeleteLicense() {
 function editLicense(id) {
   var l = appData.licenses.find(function(x){ return x.id === id; });
   if (!l) return;
-  populateFirearmSelects();
+  var f = getFirearm(l.firearmId);
+  document.getElementById('li-firearm-name').value = ((f.make||'') + ' ' + (f.model||'')).trim();
+  document.getElementById('li-caliber').value = f.caliber || '';
   document.getElementById('li-num').value = l.num || '';
-  document.getElementById('li-firearm').value = l.firearmId || '';
   document.getElementById('li-issue').value = l.issue || '';
   document.getElementById('li-expiry').value = l.expiry || '';
   document.getElementById('li-section').value = l.section || '';
@@ -1788,9 +1820,23 @@ function saveEditLicense() {
   if (!id) return;
   var idx = appData.licenses.findIndex(function(l){ return l.id === id; });
   if (idx === -1) return;
+  var firearmName = document.getElementById('li-firearm-name').value.trim();
+  var caliber = document.getElementById('li-caliber').value.trim();
+  var serial = document.getElementById('li-num').value.trim();
+  var parts = firearmName.split(' ');
+  var make = parts[0] || firearmName;
+  var model = parts.slice(1).join(' ') || '';
+  // Update linked firearm
+  var fId = appData.licenses[idx].firearmId;
+  var fIdx = appData.firearms.findIndex(function(f){ return f.id === fId; });
+  if (fIdx !== -1) {
+    appData.firearms[fIdx].make = make;
+    appData.firearms[fIdx].model = model;
+    appData.firearms[fIdx].caliber = caliber;
+    appData.firearms[fIdx].serial = serial;
+  }
   appData.licenses[idx] = Object.assign({}, appData.licenses[idx], {
-    num: document.getElementById('li-num').value,
-    firearmId: document.getElementById('li-firearm').value,
+    num: serial,
     issue: document.getElementById('li-issue').value,
     expiry: document.getElementById('li-expiry').value,
     section: document.getElementById('li-section').value,
