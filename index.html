@@ -10,7 +10,7 @@
 <meta name="theme-color" content="#4a7c2f">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
-<title>Ranger v6</title>
+<title>Ranger v7</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -909,7 +909,7 @@ select option { background: var(--bg-card); }
     </div>
     <div class="lock-title">RANGER</div>
     <div class="lock-subtitle">FIREARMS MANAGEMENT SYSTEM</div>
-    <div class="lock-subtitle" style="margin-top:6px;letter-spacing:2px;font-size:10px;opacity:0.7">VERSION 6</div>
+    <div class="lock-subtitle" style="margin-top:6px;letter-spacing:2px;font-size:10px;opacity:0.7">VERSION 7</div>
   </div>
   <div class="lock-divider"></div>
   <div class="pin-label">ENTER ACCESS CODE</div>
@@ -1107,28 +1107,66 @@ select option { background: var(--bg-card); }
     <div></div>
   </div>
   <div class="content-scroll">
-    <div class="section-label">FIREARM</div>
-    <select id="range-firearm" onchange="renderRangeRefs()" style="margin-bottom:14px"></select>
-    <div class="section-label">REFERENCE POINTS</div>
-    <div id="range-refs-display" style="margin-bottom:14px"></div>
 
-    <div class="scope-panel">
-      <div class="section-label">DIAL CALCULATOR</div>
-      <input type="number" id="range-dist" placeholder="DISTANCE (M)" oninput="calcRangeDial()" style="margin-bottom:12px">
-      <div class="scope-result" id="range-dial-result">—</div>
-      <div class="scope-note" id="range-dial-note">ENTER DISTANCE TO CALCULATE</div>
-    </div>
+    <div class="section-label" style="margin-bottom:10px">FIREARM</div>
+    <select id="range-firearm" onchange="renderRangeRefs()" style="margin-bottom:16px"></select>
 
-    <div class="scope-panel">
-      <div class="section-label">SHOT CORRECTION</div>
-      <div style="display:flex;gap:8px;margin-bottom:10px">
-        <input type="number" id="corr2-dist" placeholder="DIST (M)" style="flex:1" oninput="calcCorr2()">
-        <input type="number" id="corr2-err" placeholder="ERROR (CM)" style="flex:1" oninput="calcCorr2()">
+    <div class="scope-panel" style="margin-bottom:12px">
+      <div class="section-label">REFERENCE POINTS</div>
+      <div style="font-family:var(--font-mono);font-size:11px;font-weight:600;color:#4a7c2f;margin-bottom:12px;letter-spacing:1px">YOUR CONFIRMED SCOPE SETTINGS AT KNOWN DISTANCES</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 40px;gap:6px;margin-bottom:8px">
+        <div style="font-family:var(--font-mono);font-size:11px;font-weight:700;color:#1e3812;letter-spacing:1px;padding:8px;background:#e8f2de;border-radius:4px;text-align:center">DISTANCE (M)</div>
+        <div style="font-family:var(--font-mono);font-size:11px;font-weight:700;color:#1e3812;letter-spacing:1px;padding:8px;background:#e8f2de;border-radius:4px;text-align:center">SCOPE SETTING</div>
+        <div></div>
       </div>
-
-      <div class="scope-result" id="corr2-result">—</div>
-      <div class="scope-note" id="corr2-note">CORRECTED DIAL SETTING</div>
+      <div id="ref-points-list"></div>
+      <button onclick="addRefPoint()" style="width:100%;padding:13px;background:transparent;border:1.5px dashed #4a7c2f;border-radius:4px;font-family:var(--font-mono);font-size:13px;font-weight:700;letter-spacing:2px;color:#2a5018;cursor:pointer;margin-top:8px">+ ADD ROW</button>
     </div>
+
+    <div class="scope-panel" style="margin-bottom:12px">
+      <div class="section-label">BUILT-IN CALCULATOR</div>
+      <div style="font-family:var(--font-mono);font-size:11px;font-weight:600;color:#4a7c2f;margin-bottom:12px;letter-spacing:1px">TYPE ANY DISTANCE — GET SCOPE SETTING</div>
+      <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center">
+        <div>
+          <div style="font-family:var(--font-mono);font-size:11px;font-weight:700;color:#1e3812;margin-bottom:6px;letter-spacing:1px">DISTANCE (M)</div>
+          <input type="number" id="range-dist" placeholder="e.g. 380" oninput="calcRangeDial()" style="text-align:center;font-size:18px;font-weight:700">
+        </div>
+        <div style="font-family:var(--font-display);font-size:28px;color:#4a7c2f;font-weight:700;text-align:center;padding-top:20px">→</div>
+        <div>
+          <div style="font-family:var(--font-mono);font-size:11px;font-weight:700;color:#1e3812;margin-bottom:6px;letter-spacing:1px">SCOPE SETTING</div>
+          <div style="background:#e8f2de;border:1.5px solid #b8d4a0;border-radius:4px;height:50px;display:flex;align-items:center;justify-content:center">
+            <span style="font-family:var(--font-display);font-size:28px;font-weight:700;color:#2a5018" id="range-dial-result">—</span>
+          </div>
+        </div>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:11px;font-weight:600;color:#4a7c2f;margin-top:10px;letter-spacing:1px;text-align:center" id="range-dial-note"></div>
+    </div>
+
+    <div class="scope-panel" style="margin-bottom:16px">
+      <div class="section-label">SHOT CORRECTION</div>
+      <div style="font-family:var(--font-mono);font-size:11px;font-weight:600;color:#4a7c2f;margin-bottom:12px;letter-spacing:1px">IF SHOT LANDED OFF — CALCULATE NEW DIAL</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+        <div>
+          <div style="font-family:var(--font-mono);font-size:11px;font-weight:700;color:#1e3812;margin-bottom:6px;letter-spacing:1px">DISTANCE (M)</div>
+          <input type="number" id="corr2-dist" placeholder="e.g. 500" oninput="calcCorr2()" style="text-align:center;font-size:16px;font-weight:700">
+        </div>
+        <div>
+          <div style="font-family:var(--font-mono);font-size:11px;font-weight:700;color:#1e3812;margin-bottom:6px;letter-spacing:1px">ERROR IN CM</div>
+          <input type="number" id="corr2-err" placeholder="e.g. 3" oninput="calcCorr2()" style="text-align:center;font-size:16px;font-weight:700">
+        </div>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:11px;font-weight:700;color:#1e3812;margin-bottom:8px;letter-spacing:1px">SHOT LANDED</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+        <button id="btn-low" onclick="setDir('low')" style="padding:14px;background:#2a5018;border:2px solid #2a5018;border-radius:6px;font-family:var(--font-mono);font-size:14px;font-weight:700;letter-spacing:2px;color:#fff;cursor:pointer">LOW ↓</button>
+        <button id="btn-high" onclick="setDir('high')" style="padding:14px;background:transparent;border:2px solid #b8d4a0;border-radius:6px;font-family:var(--font-mono);font-size:14px;font-weight:700;letter-spacing:2px;color:#2a5018;cursor:pointer">HIGH ↑</button>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:11px;font-weight:700;color:#1e3812;margin-bottom:6px;letter-spacing:1px">CORRECTED DIAL SETTING</div>
+      <div style="background:#e8f2de;border:1.5px solid #b8d4a0;border-radius:4px;padding:16px;text-align:center">
+        <div style="font-family:var(--font-display);font-size:48px;font-weight:700;color:#2a5018;line-height:1" id="corr2-result">—</div>
+        <div style="font-family:var(--font-mono);font-size:11px;font-weight:600;color:#4a7c2f;margin-top:6px;letter-spacing:1px" id="corr2-note"></div>
+      </div>
+    </div>
+
   </div>
 </div>
 
