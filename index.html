@@ -5,37 +5,37 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Ranger">
-<meta name="theme-color" content="#1a2410">
-<link rel="manifest" href="data:application/json,{%22name%22:%22Ranger%20%E2%80%94%20Firearms%20Management%22,%22short_name%22:%22Ranger%22,%22start_url%22:%22/%22,%22display%22:%22standalone%22,%22background_color%22:%22%230d1209%22,%22theme_color%22:%22%231a2410%22}">
-
+<meta name="theme-color" content="#4a7c2f">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <title>Ranger</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg-deep:       #0d1209;
-  --bg-dark:       #141a0e;
-  --bg-card:       #1a2212;
-  --bg-raised:     #1f2916;
-  --bg-input:      #111608;
+  --bg-deep:       #f5f5f0;
+  --bg-dark:       #ffffff;
+  --bg-card:       #ffffff;
+  --bg-raised:     #f0f2ec;
+  --bg-input:      #f8f9f6;
   --accent:        #4a7c2f;
-  --accent-bright: #5d9e38;
-  --accent-dim:    #2d4d1c;
+  --accent-bright: #3d6826;
+  --accent-dim:    #d6e8c8;
   --amber:         #c8860a;
-  --amber-dim:     #7a5006;
-  --danger:        #8b1a1a;
-  --danger-bright: #c0392b;
+  --amber-dim:     #fdf0d5;
+  --danger:        #c0392b;
+  --danger-bright: #e74c3c;
   --success:       #2d6a2d;
   --success-bright:#3d9140;
-  --text-primary:  #d4dfc8;
-  --text-secondary:#7a8f68;
-  --text-dim:      #4a5c3a;
-  --text-accent:   #8fc45a;
-  --border:        #2a3820;
-  --border-bright: #3d5228;
-  --scanline: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px);
+  --text-primary:  #1a2410;
+  --text-secondary:#4a6035;
+  --text-dim:      #8a9e7a;
+  --text-accent:   #3d6826;
+  --border:        #dde8d0;
+  --border-bright: #b8cfa0;
+  --scanline: none;
   --font-display: 'Bebas Neue', sans-serif;
   --font-mono:    'Share Tech Mono', monospace;
   --font-body:    'Barlow', sans-serif;
@@ -62,7 +62,7 @@ body::before {
   background: var(--scanline);
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.4;
+  opacity: 0;
 }
 
 #app {
@@ -85,7 +85,7 @@ body::before {
    LOCK SCREEN
 ═══════════════════════════════════════ */
 #screen-lock {
-  background: var(--bg-deep);
+  background: #1a2410;
   justify-content: center;
   align-items: center;
   padding: 2rem;
@@ -96,7 +96,7 @@ body::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 30%, rgba(74,124,47,0.12) 0%, transparent 70%);
+  background: radial-gradient(ellipse at 50% 30%, rgba(74,124,47,0.18) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -182,13 +182,13 @@ body::before {
 
 .pin-key {
   padding: 18px 12px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  background: #253318;
+  border: 1px solid #3d5228;
   border-radius: 4px;
   font-family: var(--font-display);
   font-size: 26px;
   letter-spacing: 2px;
-  color: var(--text-primary);
+  color: #d4dfc8;
   text-align: center;
   cursor: pointer;
   position: relative;
@@ -198,9 +198,9 @@ body::before {
 }
 
 .pin-key:active, .pin-key.pressed {
-  background: var(--accent-dim);
-  border-color: var(--accent);
-  color: var(--text-accent);
+  background: #4a7c2f;
+  border-color: #5d9e38;
+  color: #d4dfc8;
   transform: scale(0.96);
 }
 
@@ -217,7 +217,7 @@ body::before {
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 1px;
-  color: var(--text-secondary);
+  color: #7a9e68;
   padding: 18px 8px;
 }
 
@@ -231,7 +231,7 @@ body::before {
   margin: 0 auto;
   padding: 14px;
   background: transparent;
-  border: 1px solid var(--border-bright);
+  border: 1px solid #3d5228;
   border-radius: 4px;
   font-family: var(--font-mono);
   font-size: 11px;
@@ -270,7 +270,7 @@ body::before {
   align-items: center;
   justify-content: space-between;
   padding: 14px 16px 10px;
-  background: var(--bg-dark);
+  background: #ffffff;
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
   position: relative;
@@ -282,7 +282,7 @@ body::before {
   bottom: -1px;
   left: 0; right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent-dim), transparent);
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
 }
 
 .topbar-back {
@@ -317,7 +317,7 @@ body::before {
    HOME SCREEN
 ═══════════════════════════════════════ */
 .home-header {
-  background: var(--bg-dark);
+  background: #ffffff;
   padding: 20px 16px 16px;
   border-bottom: 1px solid var(--border);
   display: flex;
@@ -362,13 +362,13 @@ body::before {
 .alert-banner {
   margin: 12px 12px 0;
   padding: 10px 14px;
-  background: rgba(139,26,26,0.25);
-  border: 1px solid var(--danger-bright);
+  background: #fdecea;
+  border: 1px solid #f5a9a9;
   border-radius: 2px;
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 1px;
-  color: #e07070;
+  color: #c0392b;
   cursor: pointer;
   display: none;
 }
@@ -387,6 +387,7 @@ body::before {
 .nav-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
   border-radius: 2px;
   padding: 16px 14px;
   cursor: pointer;
@@ -407,8 +408,8 @@ body::before {
 }
 
 .nav-card:active {
-  background: var(--bg-raised);
-  border-color: var(--border-bright);
+  background: #edf5e4;
+  border-color: var(--accent);
 }
 
 .nav-card:active::before { opacity: 1; }
@@ -427,7 +428,7 @@ body::before {
   font-size: 16px;
   font-weight: 700;
   letter-spacing: 2px;
-  color: var(--text-primary);
+  color: #1a2410;
   text-transform: uppercase;
 }
 
@@ -479,6 +480,7 @@ body::before {
 .item-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
   border-radius: 2px;
   padding: 14px;
   margin-bottom: 8px;
@@ -487,8 +489,8 @@ body::before {
 }
 
 .item-card.danger-card {
-  border-color: var(--danger-bright);
-  background: rgba(139,26,26,0.15);
+  border-color: #e74c3c;
+  background: #fef9f9;
 }
 
 .item-title {
@@ -524,10 +526,10 @@ body::before {
   font-weight: 600;
 }
 
-.badge-green { background: rgba(45,106,45,0.4); color: #6dc96d; border: 1px solid #2d6a2d; }
-.badge-red   { background: rgba(139,26,26,0.4); color: #e07070; border: 1px solid #8b1a1a; }
-.badge-amber { background: rgba(200,134,10,0.25); color: #e8a030; border: 1px solid #7a5006; }
-.badge-gray  { background: rgba(74,92,58,0.3); color: var(--text-secondary); border: 1px solid var(--border); }
+.badge-green { background: #e8f5e8; color: #2d6a2d; border: 1px solid #a8d4a8; }
+.badge-red   { background: #fdecea; color: #c0392b; border: 1px solid #f5a9a9; }
+.badge-amber { background: #fef9e7; color: #c8860a; border: 1px solid #f0d080; }
+.badge-gray  { background: #f0f2ec; color: #4a6035; border: 1px solid #dde8d0; }
 
 .detail-row {
   display: flex;
@@ -566,7 +568,7 @@ body::before {
    LOAD CARDS
 ═══════════════════════════════════════ */
 .load-card {
-  background: var(--bg-dark);
+  background: #f8faf5;
   border: 1px solid var(--border);
   border-left: 3px solid var(--accent);
   border-radius: 2px;
@@ -595,7 +597,7 @@ body::before {
   font-size: 10px;
   letter-spacing: 1px;
   padding: 3px 8px;
-  background: var(--bg-input);
+  background: #f0f5ea;
   border: 1px solid var(--border);
   color: var(--text-secondary);
   border-radius: 2px;
@@ -605,7 +607,7 @@ body::before {
    RANGE / SCOPE
 ═══════════════════════════════════════ */
 .scope-panel {
-  background: var(--bg-dark);
+  background: #ffffff;
   border: 1px solid var(--border);
   border-radius: 2px;
   padding: 14px;
@@ -616,8 +618,8 @@ body::before {
   font-family: var(--font-display);
   font-size: 48px;
   letter-spacing: 4px;
-  color: var(--text-accent);
-  text-shadow: 0 0 20px rgba(93,158,56,0.4);
+  color: var(--accent);
+  text-shadow: none;
   line-height: 1;
 }
 
@@ -636,9 +638,9 @@ body::before {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(200,134,10,0.2);
-  border: 1px solid var(--amber-dim);
-  color: #e8a030;
+  background: #fef9e7;
+  border: 1px solid #f0d080;
+  color: #c8860a;
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 1.5px;
@@ -655,7 +657,7 @@ body::before {
   flex: 1;
   overflow-y: auto;
   padding: 12px;
-  background: var(--bg-deep);
+  background: #f5f5f0;
 }
 .modal-wrap::-webkit-scrollbar { display: none; }
 
@@ -673,7 +675,7 @@ body::before {
 
 input, select, textarea {
   width: 100%;
-  background: var(--bg-input);
+  background: #ffffff;
   border: 1px solid var(--border);
   border-radius: 2px;
   padding: 11px 12px;
@@ -736,13 +738,13 @@ select option { background: var(--bg-card); }
    SCAN MODAL
 ═══════════════════════════════════════ */
 .scan-zone {
-  border: 1px dashed var(--border-bright);
+  border: 2px dashed var(--border-bright);
   border-radius: 2px;
   padding: 2rem 1rem;
   text-align: center;
   cursor: pointer;
   margin-bottom: 1rem;
-  background: var(--bg-input);
+  background: #f8faf5;
   transition: all 0.15s;
 }
 .scan-zone:active { border-color: var(--accent); background: var(--bg-card); }
@@ -787,9 +789,9 @@ select option { background: var(--bg-card); }
   text-transform: uppercase;
 }
 
-.scan-status.scanning { background: rgba(74,124,47,0.15); border: 1px solid var(--accent-dim); color: var(--text-accent); }
-.scan-status.success  { background: rgba(45,106,45,0.2); border: 1px solid var(--success); color: #6dc96d; }
-.scan-status.error    { background: rgba(139,26,26,0.2); border: 1px solid var(--danger); color: #e07070; }
+.scan-status.scanning { background: #edf5e4; border: 1px solid #b8cfa0; color: #3d6826; }
+.scan-status.success  { background: #e8f5e8; border: 1px solid #a8d4a8; color: #2d6a2d; }
+.scan-status.error    { background: #fdecea; border: 1px solid #f5a9a9; color: #c0392b; }
 
 .spinner {
   width: 14px; height: 14px;
@@ -807,8 +809,8 @@ select option { background: var(--bg-card); }
 .profile-emblem {
   width: 72px; height: 72px;
   border-radius: 2px;
-  background: var(--accent-dim);
-  border: 1px solid var(--accent);
+  background: #d6e8c8;
+  border: 2px solid var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -847,7 +849,7 @@ select option { background: var(--bg-card); }
   font-size: 10px;
   letter-spacing: 1px;
   padding: 4px 10px;
-  background: var(--bg-input);
+  background: #f0f5ea;
   border: 1px solid var(--border);
   color: var(--text-secondary);
   border-radius: 2px;
@@ -1046,14 +1048,14 @@ select option { background: var(--bg-card); }
       <div class="profile-name" id="profile-display-name">OPERATOR</div>
       <div class="profile-rank">RANGER SYSTEM // AUTHORISED USER</div>
     </div>
-    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:2px;padding:14px;margin-bottom:12px">
+    <div style="background:#f8faf5;border:1px solid var(--border);border-radius:2px;padding:14px;margin-bottom:12px">
       <div class="form-row"><label class="form-label">FULL NAME</label><input id="pf-name" placeholder="Name Surname"></div>
       <div class="form-row"><label class="form-label">SA ID NUMBER</label><input id="pf-id" placeholder="0000000000000"></div>
       <div class="form-row"><label class="form-label">EMAIL ADDRESS</label><input id="pf-email" type="email" placeholder="operator@email.com"></div>
       <div class="form-row"><label class="form-label">CONTACT NUMBER</label><input id="pf-phone" placeholder="+27 00 000 0000"></div>
       <div class="form-row"><label class="form-label">CFR NUMBER</label><input id="pf-cfr" placeholder="Central Firearms Register #"></div>
     </div>
-    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:2px;padding:14px">
+    <div style="background:#f8faf5;border:1px solid var(--border);border-radius:2px;padding:14px">
       <div class="section-label">SECURITY</div>
       <div class="form-row"><label class="form-label">NEW PIN (4 DIGITS)</label><input id="pf-pin" type="password" placeholder="••••" maxlength="4"></div>
     </div>
@@ -1069,23 +1071,24 @@ select option { background: var(--bg-card); }
   </div>
   <div class="modal-wrap">
     <div id="scan-upload-zone" class="scan-zone" onclick="document.getElementById('scan-file-input').click()">
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" style="margin:0 auto;display:block"><rect x="4" y="8" width="32" height="24" rx="2" stroke="#4a7c2f" stroke-width="1.5" fill="none"/><path d="M14 20l4 4 8-8" stroke="#5d9e38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 4v8" stroke="#4a7c2f" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" style="margin:0 auto;display:block"><rect x="4" y="8" width="32" height="24" rx="2" stroke="#4a7c2f" stroke-width="1.5" fill="none"/><path d="M14 20l4 4 8-8" stroke="#3d6826" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 4v8" stroke="#4a7c2f" stroke-width="1.5" stroke-linecap="round"/></svg>
       <div class="scan-zone-label">TAP TO UPLOAD LICENSE PHOTO</div>
-      <div class="scan-zone-sub">JPG / PNG — PHOTOGRAPH YOUR SA FIREARMS LICENSE</div>
+      <div class="scan-zone-sub">JPG / PNG — AI WILL ATTEMPT TO READ YOUR LICENSE</div>
+      <div class="scan-zone-sub" style="margin-top:6px;color:var(--accent)">FIELDS WILL OPEN AUTOMATICALLY FOR YOU TO FILL IN</div>
     </div>
     <input type="file" id="scan-file-input" accept="image/*" style="display:none" onchange="handleScanFile(event)">
     <img id="scan-preview" class="scan-preview">
     <div id="scan-status" class="scan-status"></div>
     <div id="scan-result-fields" style="display:none">
-      <div class="section-label">EXTRACTED DATA — VERIFY BEFORE SAVING</div>
-      <div class="form-row"><label class="form-label">LICENSE NUMBER</label><input id="sc-num"></div>
-      <div class="form-row"><label class="form-label">FIREARM MAKE</label><input id="sc-make"></div>
-      <div class="form-row"><label class="form-label">FIREARM MODEL</label><input id="sc-model"></div>
-      <div class="form-row"><label class="form-label">CALIBER</label><input id="sc-cal"></div>
-      <div class="form-row"><label class="form-label">SERIAL NUMBER</label><input id="sc-serial"></div>
+      <div class="section-label">LICENSE DETAILS — FILL IN / VERIFY</div>
+      <div class="form-row"><label class="form-label">LICENSE NUMBER</label><input id="sc-num" placeholder="SA-0000-00000"></div>
+      <div class="form-row"><label class="form-label">FIREARM MAKE</label><input id="sc-make" placeholder="e.g. Accuracy International"></div>
+      <div class="form-row"><label class="form-label">FIREARM MODEL</label><input id="sc-model" placeholder="e.g. AXMC"></div>
+      <div class="form-row"><label class="form-label">CALIBER</label><input id="sc-cal" placeholder="e.g. 6.5 Creedmoor"></div>
+      <div class="form-row"><label class="form-label">SERIAL NUMBER</label><input id="sc-serial" placeholder="Serial #"></div>
       <div class="form-row"><label class="form-label">ISSUE DATE</label><input id="sc-issue" type="date"></div>
       <div class="form-row"><label class="form-label">EXPIRY DATE</label><input id="sc-expiry" type="date"></div>
-      <div class="form-row"><label class="form-label">SECTION</label>
+      <div class="form-row"><label class="form-label">SECTION (FIREARMS CONTROL ACT)</label>
         <select id="sc-section">
           <option>Section 13 – Occasional hunter</option>
           <option>Section 15 – Dedicated hunter</option>
@@ -1094,9 +1097,15 @@ select option { background: var(--bg-card); }
           <option>Section 19 – Self-defence</option>
         </select>
       </div>
+      <div style="border-top:1px solid var(--border);margin:12px 0 16px;padding-top:14px">
+        <div class="section-label">COMPETENCY CERTIFICATE</div>
+        <div class="form-row"><label class="form-label">CERTIFICATE NUMBER</label><input id="sc-comp-num" placeholder="Competency cert #"></div>
+        <div class="form-row"><label class="form-label">COMPETENCY ISSUE DATE</label><input id="sc-comp-issue" type="date"></div>
+        <div class="form-row"><label class="form-label">COMPETENCY EXPIRY DATE</label><input id="sc-comp-expiry" type="date"></div>
+      </div>
       <div class="form-actions">
         <button class="btn-secondary" onclick="goScreen('screen-licenses')">CANCEL</button>
-        <button class="btn-primary" id="scan-save-btn" onclick="saveScanResult()">SAVE LICENSE</button>
+        <button class="btn-primary" onclick="saveScanResult()">SAVE LICENSE</button>
       </div>
     </div>
   </div>
@@ -1122,6 +1131,12 @@ select option { background: var(--bg-card); }
         <option>Section 17 – Private collector</option>
         <option>Section 19 – Self-defence</option>
       </select>
+    </div>
+    <div style="border-top:1px solid var(--border);margin:12px 0 16px;padding-top:14px">
+      <div class="section-label">COMPETENCY CERTIFICATE</div>
+      <div class="form-row"><label class="form-label">CERTIFICATE NUMBER</label><input id="li-comp-num" placeholder="Competency cert #"></div>
+      <div class="form-row"><label class="form-label">COMPETENCY ISSUE DATE</label><input id="li-comp-issue" type="date"></div>
+      <div class="form-row"><label class="form-label">COMPETENCY EXPIRY DATE</label><input id="li-comp-expiry" type="date"></div>
     </div>
     <div class="form-actions">
       <button class="btn-secondary" onclick="goScreen('screen-licenses')">CANCEL</button>
@@ -1481,7 +1496,17 @@ function addFirearm() {
   save(); goScreen('screen-firearms');
 }
 function addLicense() {
-  appData.licenses.push({ id:uid(), num:document.getElementById('li-num').value, firearmId:document.getElementById('li-firearm').value, issue:document.getElementById('li-issue').value, expiry:document.getElementById('li-expiry').value, section:document.getElementById('li-section').value });
+  appData.licenses.push({
+    id:uid(),
+    num:document.getElementById('li-num').value,
+    firearmId:document.getElementById('li-firearm').value,
+    issue:document.getElementById('li-issue').value,
+    expiry:document.getElementById('li-expiry').value,
+    section:document.getElementById('li-section').value,
+    compNum:document.getElementById('li-comp-num').value,
+    compIssue:document.getElementById('li-comp-issue').value,
+    compExpiry:document.getElementById('li-comp-expiry').value
+  });
   save(); goScreen('screen-licenses');
 }
 function addLoad() {
@@ -1513,7 +1538,9 @@ async function handleScanFile(event) {
   const reader = new FileReader();
   reader.onload = async (e) => {
     preview.src = e.target.result; preview.style.display='block';
-    showScanStatus('scanning','ANALYSING LICENSE — AI PROCESSING...', true);
+    // Always show the form immediately so user can fill in manually
+    document.getElementById('scan-result-fields').style.display='block';
+    showScanStatus('scanning','AI READING LICENSE — FIELDS WILL AUTO-FILL IF SUCCESSFUL...', true);
     const base64 = e.target.result.split(',')[1];
     const mediaType = file.type || 'image/jpeg';
     try {
@@ -1523,29 +1550,26 @@ async function handleScanFile(event) {
           model:'claude-sonnet-4-20250514', max_tokens:1000,
           messages:[{ role:'user', content:[
             { type:'image', source:{ type:'base64', media_type:mediaType, data:base64 } },
-            { type:'text', text:`This is a South African firearms license. Extract all visible data and return ONLY valid JSON with these keys (empty string if not found):
-{"licenseNumber":"","make":"","model":"","caliber":"","serialNumber":"","issueDate":"","expiryDate":"","section":""}
-Dates in YYYY-MM-DD format. Return only JSON, no other text.` }
+            { type:'text', text:'This is a South African firearms license. Extract all visible data and return ONLY valid JSON with these exact keys (empty string if not found): {"licenseNumber":"","make":"","model":"","caliber":"","serialNumber":"","issueDate":"","expiryDate":"","section":""} Dates in YYYY-MM-DD format. Return only the JSON object, no other text.' }
           ]}]
         })
       });
+      if (!res.ok) throw new Error('API error');
       const result = await res.json();
       const text = result.content&&result.content[0]&&result.content[0].text;
       if (!text) throw new Error('No response');
       const parsed = JSON.parse(text.replace(/```json|```/g,'').trim());
-      showScanStatus('success','LICENSE SCANNED — VERIFY DATA BELOW');
-      document.getElementById('sc-num').value = parsed.licenseNumber||'';
-      document.getElementById('sc-make').value = parsed.make||'';
-      document.getElementById('sc-model').value = parsed.model||'';
-      document.getElementById('sc-cal').value = parsed.caliber||'';
-      document.getElementById('sc-serial').value = parsed.serialNumber||'';
-      document.getElementById('sc-issue').value = parsed.issueDate||'';
-      document.getElementById('sc-expiry').value = parsed.expiryDate||'';
+      showScanStatus('success','AI READ LICENSE — PLEASE VERIFY ALL FIELDS BELOW');
+      if (parsed.licenseNumber) document.getElementById('sc-num').value = parsed.licenseNumber;
+      if (parsed.make) document.getElementById('sc-make').value = parsed.make;
+      if (parsed.model) document.getElementById('sc-model').value = parsed.model;
+      if (parsed.caliber) document.getElementById('sc-cal').value = parsed.caliber;
+      if (parsed.serialNumber) document.getElementById('sc-serial').value = parsed.serialNumber;
+      if (parsed.issueDate) document.getElementById('sc-issue').value = parsed.issueDate;
+      if (parsed.expiryDate) document.getElementById('sc-expiry').value = parsed.expiryDate;
       if (parsed.section) { const sel=document.getElementById('sc-section'); for(let i=0;i<sel.options.length;i++){if(sel.options[i].text.toLowerCase().includes(parsed.section.toLowerCase())){sel.selectedIndex=i;break;}} }
-      document.getElementById('scan-result-fields').style.display='block';
     } catch(err) {
-      showScanStatus('error','SCAN INCOMPLETE — COMPLETE FIELDS MANUALLY');
-      document.getElementById('scan-result-fields').style.display='block';
+      showScanStatus('error','AUTO-FILL UNAVAILABLE — PLEASE FILL IN FIELDS MANUALLY BELOW');
     }
   };
   reader.readAsDataURL(file);
@@ -1557,12 +1581,24 @@ function saveScanResult() {
   const existing = appData.firearms.find(f => f.serial && f.serial===serial);
   if (existing) { fId=existing.id; }
   else if (make||model) { fId=uid(); appData.firearms.push({id:fId,make,model,caliber:document.getElementById('sc-cal').value,serial,type:'Rifle',scopeRefs:[]}); }
-  appData.licenses.push({ id:uid(), num:document.getElementById('sc-num').value, firearmId:fId, issue:document.getElementById('sc-issue').value, expiry:document.getElementById('sc-expiry').value, section:document.getElementById('sc-section').value });
+  appData.licenses.push({
+    id:uid(),
+    num:document.getElementById('sc-num').value,
+    firearmId:fId,
+    issue:document.getElementById('sc-issue').value,
+    expiry:document.getElementById('sc-expiry').value,
+    section:document.getElementById('sc-section').value,
+    compNum:document.getElementById('sc-comp-num').value,
+    compIssue:document.getElementById('sc-comp-issue').value,
+    compExpiry:document.getElementById('sc-comp-expiry').value
+  });
   save(); goScreen('screen-licenses'); initHome();
 }
 
 // ── SERVICE WORKER ──
-// PWA ready
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(()=>{});
+}
 </script>
 </body>
 </html>
