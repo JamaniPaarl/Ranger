@@ -10,7 +10,7 @@
 <meta name="theme-color" content="#4a7c2f">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
-<title>Ranger v5</title>
+<title>Ranger v6</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -909,7 +909,7 @@ select option { background: var(--bg-card); }
     </div>
     <div class="lock-title">RANGER</div>
     <div class="lock-subtitle">FIREARMS MANAGEMENT SYSTEM</div>
-    <div class="lock-subtitle" style="margin-top:6px;letter-spacing:2px;font-size:10px;opacity:0.7">VERSION 5</div>
+    <div class="lock-subtitle" style="margin-top:6px;letter-spacing:2px;font-size:10px;opacity:0.7">VERSION 6</div>
   </div>
   <div class="lock-divider"></div>
   <div class="pin-label">ENTER ACCESS CODE</div>
@@ -1125,10 +1125,7 @@ select option { background: var(--bg-card); }
         <input type="number" id="corr2-dist" placeholder="DIST (M)" style="flex:1" oninput="calcCorr2()">
         <input type="number" id="corr2-err" placeholder="ERROR (CM)" style="flex:1" oninput="calcCorr2()">
       </div>
-      <select id="corr2-dir" onchange="calcCorr2()" style="margin-bottom:12px">
-        <option value="low">SHOT TOO LOW — DIAL UP</option>
-        <option value="high">SHOT TOO HIGH — DIAL DOWN</option>
-      </select>
+
       <div class="scope-result" id="corr2-result">—</div>
       <div class="scope-note" id="corr2-note">CORRECTED DIAL SETTING</div>
     </div>
@@ -1530,27 +1527,22 @@ function getCurrentFirearm() {
 
 function renderRangeRefs() {
   const f = getCurrentFirearm();
-  if (!f) return;
-  const refs = f.scopeRefs || [];
-  const zero = f.scopeZero || '';
-
-  // Set zero field
-  const zeroEl = document.getElementById('range-zero');
-  if (zeroEl) zeroEl.value = zero;
-
-  // Render ref point rows
   const listEl = document.getElementById('ref-points-list');
   if (!listEl) return;
+  if (!f) {
+    listEl.innerHTML = '<div style="font-family:var(--font-mono);font-size:12px;font-weight:600;color:#8aaa78;padding:8px 0;letter-spacing:1px">SELECT A FIREARM ABOVE</div>';
+    return;
+  }
+  const refs = f.scopeRefs || [];
   if (!refs.length) {
-    listEl.innerHTML = '<div style="font-family:var(--font-mono);font-size:12px;font-weight:600;color:#8aaa78;padding:8px 0;letter-spacing:1px">NO REFERENCE POINTS — ADD BELOW</div>';
+    listEl.innerHTML = '<div style="font-family:var(--font-mono);font-size:12px;font-weight:600;color:#8aaa78;padding:8px 0;letter-spacing:1px;text-align:center">NO ROWS YET — TAP + ADD ROW</div>';
     return;
   }
   listEl.innerHTML = refs.map((r, i) => `
-    <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
-      <input type="number" value="${r.dist}" onchange="updateRef(${i},'dist',this.value)" placeholder="DIST (M)" style="flex:1">
-      <span style="font-family:var(--font-mono);font-size:13px;font-weight:700;color:#1e3812">M →</span>
-      <input type="number" step="0.01" value="${r.dial}" onchange="updateRef(${i},'dial',this.value)" placeholder="DIAL" style="flex:1">
-      <button onclick="removeRef(${i})" style="padding:8px 12px;background:#fdecea;border:1px solid #f5a9a9;border-radius:4px;font-family:var(--font-mono);font-size:12px;font-weight:700;color:#c0392b;cursor:pointer">✕</button>
+    <div style="display:grid;grid-template-columns:1fr 1fr 40px;gap:6px;margin-bottom:6px;align-items:center">
+      <input type="number" value="${r.dist || ''}" onchange="updateRef(${i},'dist',this.value)" placeholder="e.g. 300" style="text-align:center;font-size:16px;font-weight:700">
+      <input type="number" step="0.01" value="${r.dial !== undefined ? r.dial : ''}" onchange="updateRef(${i},'dial',this.value)" placeholder="e.g. 1.6" style="text-align:center;font-size:16px;font-weight:700">
+      <button onclick="removeRef(${i})" style="width:36px;height:50px;background:#fdecea;border:1px solid #f5a9a9;border-radius:4px;font-family:var(--font-mono);font-size:14px;font-weight:700;color:#c0392b;cursor:pointer">✕</button>
     </div>`).join('');
 }
 
