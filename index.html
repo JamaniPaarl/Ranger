@@ -881,14 +881,7 @@ select option { background: var(--bg-card); }
 }
 
 
-/* SWIPE ACTIONS */
-.swipe-container { position: relative; margin-bottom: 8px; }
-.swipe-actions { position: absolute; right: 0; top: 0; bottom: 0; display: flex; align-items: stretch; width: 140px; z-index: 1; border-radius: 0 4px 4px 0; overflow: hidden; }
-.swipe-edit-btn { background: #2a5018; color: #fff; border: none; flex: 1; font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 1px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-.swipe-delete-btn { background: #c0392b; color: #fff; border: none; flex: 1; font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 1px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-.swipe-card { transition: transform 0.25s ease; background: var(--bg-card); position: relative; z-index: 2; border-radius: 4px; }
-.swipe-card.swiped { transform: translateX(-140px); }
-.swipe-card.swiped { border-radius: 4px 0 0 4px; }
+/* swipe removed */
 
 /* ANIMATIONS */
 @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
