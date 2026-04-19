@@ -49,9 +49,9 @@ html, body {
   background: var(--bg-deep);
   color: var(--text-primary);
   font-family: var(--font-body);
-  font-size: 17px;
-  font-weight: 500;
-  line-height: 1.6;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.65;
   overflow: hidden;
 }
 
@@ -337,7 +337,7 @@ body::before {
 
 .home-greeting {
   font-family: var(--font-display);
-  font-size: 32px;
+  font-size: 36px;
   letter-spacing: 3px;
   color: #1a3010;
   line-height: 1;
@@ -435,10 +435,10 @@ body::before {
 
 .nav-card-label {
   font-family: var(--font-cond);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   letter-spacing: 2px;
-  color: #1a2410;
+  color: #0d1a06;
   text-transform: uppercase;
 }
 
@@ -449,6 +449,7 @@ body::before {
   color: #1e3812;
   letter-spacing: 1px;
   margin-top: 4px;
+  font-size: 13px;
 }
 
 .nav-card-inline {
@@ -476,7 +477,8 @@ body::before {
   letter-spacing: 3px;
   color: #1e3812;
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  font-size: 13px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -516,7 +518,7 @@ body::before {
 
 .item-sub {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   color: #1e3812;
   margin-top: 4px;
@@ -531,12 +533,12 @@ body::before {
 
 .badge {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 1.5px;
-  padding: 3px 8px;
+  padding: 4px 10px;
   border-radius: 2px;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .badge-green { background: #e8f5e8; color: #2d6a2d; border: 1px solid #a8d4a8; }
@@ -548,13 +550,13 @@ body::before {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 10px 0;
+  padding: 11px 0;
   border-bottom: 1px solid var(--border);
-  font-size: 15px;
+  font-size: 16px;
 }
 .detail-row:last-child { border-bottom: none; }
-.detail-label { font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 1px; color: #1e3812; text-transform: uppercase; padding-top: 2px; }
-.detail-val { font-family: var(--font-body); font-size: 15px; font-weight: 700; color: #0d1a06; text-align: right; max-width: 60%; }
+.detail-label { font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 1px; color: #1e3812; text-transform: uppercase; padding-top: 2px; font-size: 13px; }
+.detail-val { font-family: var(--font-body); font-size: 15px; font-weight: 700; color: #0d1a06; text-align: right; max-width: 60%; font-size: 16px; }
 
 .add-btn {
   display: flex;
@@ -567,7 +569,7 @@ body::before {
   border: 1.5px dashed #4a7c2f;
   border-radius: 2px;
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 2px;
   color: #2a5018;
@@ -611,11 +613,12 @@ body::before {
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 1px;
-  padding: 3px 8px;
+  padding: 5px 10px;
   background: #e8f2de;
   border: 1px solid #b8d4a0;
   color: #1e3812;
   border-radius: 2px;
+  font-size: 13px;
 }
 
 /* ═══════════════════════════════════════
@@ -631,9 +634,9 @@ body::before {
 
 .scope-result {
   font-family: var(--font-display);
-  font-size: 48px;
+  font-size: 52px;
   letter-spacing: 4px;
-  color: var(--accent);
+  color: #2a5018;
   text-shadow: none;
   line-height: 1;
 }
@@ -645,6 +648,7 @@ body::before {
   letter-spacing: 1px;
   color: #1e3812;
   margin-top: 6px;
+  font-size: 14px;
 }
 
 /* ═══════════════════════════════════════
@@ -686,7 +690,8 @@ body::before {
   letter-spacing: 2px;
   color: #1e3812;
   text-transform: uppercase;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  font-size: 13px;
   display: block;
 }
 
@@ -695,9 +700,9 @@ input, select, textarea {
   background: #ffffff;
   border: 1px solid var(--border);
   border-radius: 2px;
-  padding: 13px 14px;
+  padding: 14px 15px;
   font-family: var(--font-mono);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
   color: #0d1a06;
   outline: none;
@@ -841,9 +846,9 @@ select option { background: var(--bg-card); }
 
 .profile-name {
   font-family: var(--font-display);
-  font-size: 28px;
+  font-size: 32px;
   letter-spacing: 4px;
-  color: var(--text-primary);
+  color: #0d1a06;
   text-align: center;
   text-transform: uppercase;
 }
@@ -877,12 +882,13 @@ select option { background: var(--bg-card); }
 
 
 /* SWIPE ACTIONS */
-.swipe-container { position: relative; overflow: hidden; margin-bottom: 8px; border-radius: 4px; }
-.swipe-actions { position: absolute; right: 0; top: 0; bottom: 0; display: flex; align-items: stretch; }
-.swipe-edit-btn { background: #2a5018; color: #fff; border: none; padding: 0 20px; font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 1px; cursor: pointer; display: flex; align-items: center; justify-content: center; min-width: 70px; }
-.swipe-delete-btn { background: #c0392b; color: #fff; border: none; padding: 0 20px; font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 1px; cursor: pointer; display: flex; align-items: center; justify-content: center; min-width: 70px; border-radius: 0 4px 4px 0; }
-.swipe-card { transition: transform 0.25s ease; background: var(--bg-card); }
+.swipe-container { position: relative; margin-bottom: 8px; }
+.swipe-actions { position: absolute; right: 0; top: 0; bottom: 0; display: flex; align-items: stretch; width: 140px; z-index: 1; border-radius: 0 4px 4px 0; overflow: hidden; }
+.swipe-edit-btn { background: #2a5018; color: #fff; border: none; flex: 1; font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 1px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.swipe-delete-btn { background: #c0392b; color: #fff; border: none; flex: 1; font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 1px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.swipe-card { transition: transform 0.25s ease; background: var(--bg-card); position: relative; z-index: 2; border-radius: 4px; }
 .swipe-card.swiped { transform: translateX(-140px); }
+.swipe-card.swiped { border-radius: 4px 0 0 4px; }
 
 /* ANIMATIONS */
 @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
