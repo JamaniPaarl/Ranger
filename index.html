@@ -85,7 +85,7 @@ body::before {
    LOCK SCREEN
 ═══════════════════════════════════════ */
 #screen-lock {
-  background: #1a2410;
+  background: #4a6832;
   justify-content: center;
   align-items: center;
   padding: 2rem;
@@ -96,7 +96,7 @@ body::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 30%, rgba(74,124,47,0.18) 0%, transparent 70%);
+  background: radial-gradient(ellipse at 50% 30%, rgba(255,255,255,0.08) 0%, transparent 60%);
   pointer-events: none;
 }
 
@@ -120,33 +120,34 @@ body::before {
   font-family: var(--font-display);
   font-size: 52px;
   letter-spacing: 8px;
-  color: var(--text-accent);
+  color: #e8f0d8;
   line-height: 1;
-  text-shadow: 0 0 30px rgba(93,158,56,0.3);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
 }
 
 .lock-subtitle {
   font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--text-dim);
+  font-size: 14px;
+  color: #b8cfa0;
   letter-spacing: 3px;
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 .lock-divider {
   width: 120px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  margin: 0 auto 2.5rem;
+  background: linear-gradient(90deg, transparent, #b8cfa0, transparent);
+  margin: 0 auto 1.5rem;
 }
 
 .pin-label {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 15px;
   letter-spacing: 3px;
-  color: var(--text-dim);
+  color: #dcecc8;
   text-align: center;
   margin-bottom: 1rem;
+  font-weight: 500;
 }
 
 .pin-dots {
@@ -157,38 +158,43 @@ body::before {
 }
 
 .pin-dot {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  border: 1.5px solid var(--border-bright);
+  border: 2px solid #b8cfa0;
   background: transparent;
   transition: all 0.15s;
   position: relative;
 }
 
 .pin-dot.filled {
-  background: var(--accent-bright);
-  border-color: var(--accent-bright);
-  box-shadow: 0 0 8px rgba(93,158,56,0.6);
+  background: #e8f0d8;
+  border-color: #e8f0d8;
+  box-shadow: 0 0 8px rgba(232,240,216,0.5);
 }
 
 .pin-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
-  max-width: 260px;
+  max-width: 330px;
   margin: 0 auto 1.5rem;
+  width: 100%;
 }
 
 .pin-key {
-  padding: 18px 12px;
-  background: #253318;
-  border: 1px solid #3d5228;
-  border-radius: 4px;
+  padding: 0;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.18);
+  border: 1.5px solid rgba(255,255,255,0.35);
+  border-radius: 8px;
   font-family: var(--font-display);
-  font-size: 26px;
+  font-size: 30px;
   letter-spacing: 2px;
-  color: #d4dfc8;
+  color: #f0f5e8;
   text-align: center;
   cursor: pointer;
   position: relative;
@@ -198,27 +204,26 @@ body::before {
 }
 
 .pin-key:active, .pin-key.pressed {
-  background: #4a7c2f;
-  border-color: #5d9e38;
-  color: #d4dfc8;
+  background: rgba(255,255,255,0.4);
+  border-color: rgba(255,255,255,0.6);
+  color: #ffffff;
   transform: scale(0.96);
 }
 
 .pin-key-sub {
   font-family: var(--font-mono);
-  font-size: 8px;
+  font-size: 9px;
   letter-spacing: 2px;
-  color: var(--text-dim);
+  color: #6a8050;
   display: block;
   margin-top: 2px;
 }
 
 .pin-key.action-key {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 1px;
-  color: #7a9e68;
-  padding: 18px 8px;
+  color: #c8ddb0;
 }
 
 .bio-btn {
@@ -227,9 +232,9 @@ body::before {
   justify-content: center;
   gap: 8px;
   width: 100%;
-  max-width: 260px;
+  max-width: 360px;
   margin: 0 auto;
-  padding: 14px;
+  padding: 16px;
   background: transparent;
   border: 1px solid #3d5228;
   border-radius: 4px;
@@ -245,18 +250,19 @@ body::before {
 
 .pin-error {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 14px;
   letter-spacing: 2px;
-  color: var(--danger-bright);
+  color: #ffb3b3;
   text-align: center;
   min-height: 20px;
   margin-bottom: 0.75rem;
+  font-weight: 500;
 }
 
 .demo-hint {
   font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--text-dim);
+  font-size: 12px;
+  color: #b8cfa0;
   text-align: center;
   margin-top: 1.5rem;
   letter-spacing: 1px;
@@ -374,7 +380,7 @@ body::before {
 }
 
 .alert-banner::before {
-  content: '⚠ ';
+  content: '';
 }
 
 .nav-grid {
@@ -869,15 +875,15 @@ select option { background: var(--bg-card); }
   <div class="lock-logo-wrap" style="position:relative;z-index:1">
     <div class="lock-emblem">
       <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="40,4 76,22 76,58 40,76 4,58 4,22" fill="none" stroke="#2d4d1c" stroke-width="1.5"/>
-        <polygon points="40,10 70,26 70,54 40,70 10,54 10,26" fill="none" stroke="#4a7c2f" stroke-width="1"/>
-        <path d="M40 20 L52 30 L52 50 L40 60 L28 50 L28 30 Z" fill="#1a2212" stroke="#5d9e38" stroke-width="1.5"/>
-        <path d="M34 40 L38 44 L46 34" stroke="#5d9e38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="40" cy="40" r="3" fill="#5d9e38" opacity="0.6"/>
-        <line x1="40" y1="4" x2="40" y2="12" stroke="#4a7c2f" stroke-width="1"/>
-        <line x1="40" y1="68" x2="40" y2="76" stroke="#4a7c2f" stroke-width="1"/>
-        <line x1="4" y1="40" x2="12" y2="40" stroke="#4a7c2f" stroke-width="1"/>
-        <line x1="68" y1="40" x2="76" y2="40" stroke="#4a7c2f" stroke-width="1"/>
+        <polygon points="40,4 76,22 76,58 40,76 4,58 4,22" fill="none" stroke="#b8cfa0" stroke-width="1.5"/>
+        <polygon points="40,10 70,26 70,54 40,70 10,54 10,26" fill="none" stroke="#dcecc8" stroke-width="1"/>
+        <path d="M40 20 L52 30 L52 50 L40 60 L28 50 L28 30 Z" fill="rgba(0,0,0,0.2)" stroke="#e8f0d8" stroke-width="1.5"/>
+        <path d="M34 40 L38 44 L46 34" stroke="#e8f0d8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="40" cy="40" r="3" fill="#e8f0d8" opacity="0.8"/>
+        <line x1="40" y1="4" x2="40" y2="12" stroke="#b8cfa0" stroke-width="1"/>
+        <line x1="40" y1="68" x2="40" y2="76" stroke="#b8cfa0" stroke-width="1"/>
+        <line x1="4" y1="40" x2="12" y2="40" stroke="#b8cfa0" stroke-width="1"/>
+        <line x1="68" y1="40" x2="76" y2="40" stroke="#b8cfa0" stroke-width="1"/>
       </svg>
     </div>
     <div class="lock-title">RANGER</div>
@@ -893,21 +899,21 @@ select option { background: var(--bg-card); }
   </div>
   <div class="pin-error" id="pin-error"></div>
   <div class="pin-grid">
-    <div class="pin-key" onclick="pinPress('1')">1<span class="pin-key-sub"></span></div>
-    <div class="pin-key" onclick="pinPress('2')">2<span class="pin-key-sub">ABC</span></div>
-    <div class="pin-key" onclick="pinPress('3')">3<span class="pin-key-sub">DEF</span></div>
-    <div class="pin-key" onclick="pinPress('4')">4<span class="pin-key-sub">GHI</span></div>
-    <div class="pin-key" onclick="pinPress('5')">5<span class="pin-key-sub">JKL</span></div>
-    <div class="pin-key" onclick="pinPress('6')">6<span class="pin-key-sub">MNO</span></div>
-    <div class="pin-key" onclick="pinPress('7')">7<span class="pin-key-sub">PQRS</span></div>
-    <div class="pin-key" onclick="pinPress('8')">8<span class="pin-key-sub">TUV</span></div>
-    <div class="pin-key" onclick="pinPress('9')">9<span class="pin-key-sub">WXYZ</span></div>
+    <div class="pin-key" onclick="pinPress('1')">1</div>
+    <div class="pin-key" onclick="pinPress('2')">2</div>
+    <div class="pin-key" onclick="pinPress('3')">3</div>
+    <div class="pin-key" onclick="pinPress('4')">4</div>
+    <div class="pin-key" onclick="pinPress('5')">5</div>
+    <div class="pin-key" onclick="pinPress('6')">6</div>
+    <div class="pin-key" onclick="pinPress('7')">7</div>
+    <div class="pin-key" onclick="pinPress('8')">8</div>
+    <div class="pin-key" onclick="pinPress('9')">9</div>
     <div class="pin-key action-key" onclick="pinClear()">CLR</div>
     <div class="pin-key" onclick="pinPress('0')">0</div>
     <div class="pin-key action-key" onclick="pinBack()">DEL</div>
   </div>
-  <button class="bio-btn" onclick="bioUnlock()">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 1C8.5 1 5.5 3.5 5.5 7v1H4v14h16V8h-1.5V7C18.5 3.5 15.5 1 12 1zm0 2c2.5 0 4.5 1.8 4.5 4v1h-9V7c0-2.2 2-4 4.5-4z" fill="currentColor" opacity="0.7"/></svg>
+  <button onclick="bioUnlock()" style="display:flex;align-items:center;justify-content:center;gap:10px;width:330px;height:80px;background:rgba(255,255,255,0.18);border:1.5px solid rgba(255,255,255,0.35);border-radius:8px;font-family:var(--font-mono);font-size:16px;letter-spacing:2px;color:#ffffff;cursor:pointer;margin:0 auto;">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 1C8.5 1 5.5 3.5 5.5 7v1H4v14h16V8h-1.5V7C18.5 3.5 15.5 1 12 1zm0 2c2.5 0 4.5 1.8 4.5 4v1h-9V7c0-2.2 2-4 4.5-4z" fill="#ffffff"/></svg>
     BIOMETRIC ACCESS
   </button>
   <div class="demo-hint">DEMO CODE: 1234</div>
@@ -1296,22 +1302,10 @@ select option { background: var(--bg-card); }
 let pinEntry = '';
 let appData = {
   profile: { name:'', id:'', email:'', phone:'', cfr:'', pin:'1234' },
-  firearms: [
-    { id:'f1', make:'Accuracy International', model:'AXMC', caliber:'6.5 Creedmoor', serial:'AI-2024-001', type:'Rifle', scopeRefs:[{dist:100,dial:0},{dist:300,dial:1.6},{dist:500,dial:3.2}] },
-    { id:'f2', make:'Colt', model:'1911', caliber:'.45 ACP', serial:'COLT-45-999', type:'Pistol', scopeRefs:[] }
-  ],
-  licenses: [
-    { id:'l1', num:'SA-2024-00123', firearmId:'f1', issue:'2020-03-15', expiry:'2025-09-15', section:'Section 16 – Dedicated sports person' },
-    { id:'l2', num:'SA-2024-00456', firearmId:'f2', issue:'2021-06-01', expiry:'2026-06-01', section:'Section 19 – Self-defence' }
-  ],
-  loads: [
-    { id:'ld1', firearmId:'f1', powder:'Rheinmetall', bulletMfr:'Lapua', bulletWt:'123', bulletType:'BTHP (Boat Tail Hollow Point)', charge:'43.0', primer:'CCI 250', notes:'Best group at 500m' },
-    { id:'ld2', firearmId:'f2', powder:'Hodgdon Universal', bulletMfr:'Hornady', bulletWt:'230', bulletType:'FMJ (Full Metal Jacket)', charge:'7.5', primer:'CCI 300', notes:'Range practice load' }
-  ],
-  equipment: [
-    { id:'e1', name:'Vortex Razor HD Gen III', cat:'Scope', brand:'Vortex', serial:'VPR-2023', battery:'', notes:'¼ MOA per click, 34mm tube' },
-    { id:'e2', name:'Sig Sauer Kilo 2400', cat:'Rangefinder', brand:'Sig Sauer', serial:'SIG-RF-8821', battery:'CR2032', notes:'Up to 3200m range' }
-  ]
+  firearms: [],
+  licenses: [],
+  loads: [],
+  equipment: []
 };
 
 function save() { try { localStorage.setItem('ranger_pwa', JSON.stringify(appData)); } catch(e){} }
@@ -1399,12 +1393,23 @@ function initHome() {
 function daysUntil(d) { return Math.ceil((new Date(d) - new Date()) / 86400000); }
 
 function checkAlerts() {
+  if (!appData.licenses.length) { document.getElementById('license-alert').style.display='none'; return; }
   const exp = appData.licenses.filter(l => daysUntil(l.expiry) <= 0);
   const soon = appData.licenses.filter(l => daysUntil(l.expiry) > 0 && daysUntil(l.expiry) <= 180);
   const b = document.getElementById('license-alert');
-  if (exp.length) { b.style.display='block'; b.textContent = exp.length + ' LICENSE(S) EXPIRED — IMMEDIATE ACTION REQUIRED'; }
-  else if (soon.length) { b.style.display='block'; b.textContent = soon.length + ' LICENSE(S) EXPIRING WITHIN 6 MONTHS'; }
-  else b.style.display = 'none';
+  if (exp.length) {
+    b.style.display='block';
+    b.style.background='#fdecea'; b.style.borderColor='#f5a9a9'; b.style.color='#c0392b';
+    b.textContent = exp.length + ' LICENSE(S) EXPIRED — IMMEDIATE ACTION REQUIRED';
+  } else if (soon.length) {
+    b.style.display='block';
+    b.style.background='#fef9e7'; b.style.borderColor='#f0d080'; b.style.color='#c8860a';
+    b.textContent = soon.length + ' LICENSE(S) EXPIRING WITHIN 6 MONTHS — TAP TO VIEW';
+  } else {
+    b.style.display='block';
+    b.style.background='#e8f5e8'; b.style.borderColor='#a8d4a8'; b.style.color='#2d6a2d';
+    b.textContent = 'ALL LICENSES UP TO DATE';
+  }
 }
 
 function getFirearm(id) { return appData.firearms.find(f => f.id === id) || {}; }
