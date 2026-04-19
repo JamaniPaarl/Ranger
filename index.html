@@ -1184,7 +1184,7 @@ select option { background: var(--bg-card); }
     <div id="scan-status" class="scan-status"></div>
     <div id="scan-result-fields" style="display:none">
       <div class="section-label">LICENSE DETAILS — FILL IN / VERIFY</div>
-      <div class="form-row"><label class="form-label">LICENSE NUMBER</label><input id="sc-num" placeholder="SA-0000-00000"></div>
+      <div class="form-row"><label class="form-label">FIREARM SERIAL NUMBER</label><input id="sc-num" placeholder="Gun serial number"></div>
       <div class="form-row"><label class="form-label">FIREARM MAKE</label><input id="sc-make" placeholder="e.g. Accuracy International"></div>
       <div class="form-row"><label class="form-label">FIREARM MODEL</label><input id="sc-model" placeholder="e.g. AXMC"></div>
       <div class="form-row"><label class="form-label">CALIBER</label><input id="sc-cal" placeholder="e.g. 6.5 Creedmoor"></div>
@@ -1193,11 +1193,8 @@ select option { background: var(--bg-card); }
       <div class="form-row"><label class="form-label">EXPIRY DATE</label><input id="sc-expiry" type="date"></div>
       <div class="form-row"><label class="form-label">SECTION (FIREARMS CONTROL ACT)</label>
         <select id="sc-section">
-          <option>Section 13 – Occasional hunter</option>
-          <option>Section 15 – Dedicated hunter</option>
-          <option>Section 16 – Dedicated sports person</option>
-          <option>Section 17 – Private collector</option>
-          <option>Section 19 – Self-defence</option>
+          <option>Section 13 – Self-defence</option>
+          <option>Section 16 – Dedicated sports shooter / hunter</option>
         </select>
       </div>
       <div style="border-top:1px solid var(--border);margin:12px 0 16px;padding-top:14px">
@@ -1222,17 +1219,14 @@ select option { background: var(--bg-card); }
     <div></div>
   </div>
   <div class="modal-wrap">
-    <div class="form-row"><label class="form-label">LICENSE NUMBER</label><input id="li-num" placeholder="SA-0000-00000"></div>
+    <div class="form-row"><label class="form-label">FIREARM SERIAL NUMBER</label><input id="li-num" placeholder="Gun serial number"></div>
     <div class="form-row"><label class="form-label">FIREARM</label><select id="li-firearm"></select></div>
     <div class="form-row"><label class="form-label">ISSUE DATE</label><input id="li-issue" type="date"></div>
     <div class="form-row"><label class="form-label">EXPIRY DATE</label><input id="li-expiry" type="date"></div>
     <div class="form-row"><label class="form-label">SECTION (FIREARMS CONTROL ACT)</label>
       <select id="li-section">
-        <option>Section 13 – Occasional hunter</option>
-        <option>Section 15 – Dedicated hunter</option>
-        <option>Section 16 – Dedicated sports person</option>
-        <option>Section 17 – Private collector</option>
-        <option>Section 19 – Self-defence</option>
+        <option>Section 13 – Self-defence</option>
+        <option>Section 16 – Dedicated sports shooter / hunter</option>
       </select>
     </div>
     <div style="border-top:1px solid var(--border);margin:12px 0 16px;padding-top:14px">
@@ -1463,7 +1457,7 @@ function renderLicenses() {
     const badge = expired ? '<span class="badge badge-red">EXPIRED</span>' : soon ? `<span class="badge badge-amber">${days}D LEFT</span>` : `<span class="badge badge-green">${days}D LEFT</span>`;
     return `<div class="item-card ${cls}">
       <div class="item-row" style="margin-bottom:10px"><div class="item-title">${f.make||'UNKNOWN'} ${f.model||''}</div>${badge}</div>
-      <div class="detail-row"><span class="detail-label">LICENSE #</span><span class="detail-val">${l.num}</span></div>
+      <div class="detail-row"><span class="detail-label">SERIAL #</span><span class="detail-val">${l.num}</span></div>
       <div class="detail-row"><span class="detail-label">SECTION</span><span class="detail-val" style="font-size:12px">${l.section}</span></div>
       <div class="detail-row"><span class="detail-label">ISSUED</span><span class="detail-val">${l.issue}</span></div>
       <div class="detail-row"><span class="detail-label">EXPIRES</span><span class="detail-val" style="color:${expired||soon?'#e07070':'inherit'}">${l.expiry}</span></div>
