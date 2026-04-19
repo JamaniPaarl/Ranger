@@ -10,7 +10,7 @@
 <meta name="theme-color" content="#4a7c2f">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
-<title>Ranger</title>
+<title>Ranger v4</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -909,6 +909,7 @@ select option { background: var(--bg-card); }
     </div>
     <div class="lock-title">RANGER</div>
     <div class="lock-subtitle">FIREARMS MANAGEMENT SYSTEM</div>
+    <div class="lock-subtitle" style="margin-top:6px;letter-spacing:2px;font-size:10px;opacity:0.7">VERSION 4</div>
   </div>
   <div class="lock-divider"></div>
   <div class="pin-label">ENTER ACCESS CODE</div>
@@ -1225,9 +1226,9 @@ select option { background: var(--bg-card); }
     <div></div>
   </div>
   <div class="modal-wrap">
-    <div class="form-row"><label class="form-label">FIREARM MAKE &amp; MODEL</label><input id="li-firearm-name" placeholder="e.g. Accuracy International AXMC"></div>
+    <div class="form-row"><label class="form-label">FIREARM</label><input id="li-firearm-name" placeholder="e.g. Accuracy International AXMC"></div>
     <div class="form-row"><label class="form-label">CALIBER</label><input id="li-caliber" placeholder="e.g. 6.5 Creedmoor"></div>
-    <div class="form-row"><label class="form-label">SERIAL NUMBER</label><input id="li-num" placeholder="Gun serial number"></div>
+    <div class="form-row"><label class="form-label">SERIAL NUMBER</label><input id="li-num" placeholder="e.g. ABC123456"></div>
     <div class="form-row"><label class="form-label">ISSUE DATE</label><input id="li-issue" type="date"></div>
     <div class="form-row"><label class="form-label">EXPIRY DATE</label><input id="li-expiry" type="date"></div>
     <div class="form-row"><label class="form-label">SECTION (FIREARMS CONTROL ACT)</label>
@@ -1236,12 +1237,9 @@ select option { background: var(--bg-card); }
         <option>Section 16 – Dedicated sports shooter / hunter</option>
       </select>
     </div>
-    <div style="border-top:1px solid var(--border);margin:12px 0 16px;padding-top:14px">
-      <div class="section-label">COMPETENCY CERTIFICATE</div>
-      <div class="form-row"><label class="form-label">CERTIFICATE NUMBER</label><input id="li-comp-num" placeholder="Competency cert #"></div>
-      <div class="form-row"><label class="form-label">COMPETENCY ISSUE DATE</label><input id="li-comp-issue" type="date"></div>
-      <div class="form-row"><label class="form-label">COMPETENCY EXPIRY DATE</label><input id="li-comp-expiry" type="date"></div>
-    </div>
+    <input type="hidden" id="li-comp-num" value="">
+    <input type="hidden" id="li-comp-issue" value="">
+    <input type="hidden" id="li-comp-expiry" value="">
     <div class="form-actions">
       <button class="btn-secondary" onclick="goScreen('screen-licenses')">CANCEL</button>
       <button class="btn-primary" onclick="addLicense()">SAVE</button>
