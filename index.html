@@ -29,10 +29,10 @@
   --danger-bright: #e74c3c;
   --success:       #2d6a2d;
   --success-bright:#3d9140;
-  --text-primary:  #1a2410;
-  --text-secondary:#4a6035;
-  --text-dim:      #8a9e7a;
-  --text-accent:   #3d6826;
+  --text-primary:  #0d1a06;
+  --text-secondary:#2a4a1a;
+  --text-dim:      #3a5828;
+  --text-accent:   #2a5018;
   --border:        #dde8d0;
   --border-bright: #b8cfa0;
   --scanline: none;
@@ -295,8 +295,9 @@ body::before {
 .topbar-back {
   font-family: var(--font-mono);
   font-size: 13px;
+  font-weight: 700;
   letter-spacing: 1px;
-  color: var(--text-accent);
+  color: #2a5018;
   cursor: pointer;
   padding: 6px 0;
   display: flex;
@@ -308,14 +309,15 @@ body::before {
   font-family: var(--font-display);
   font-size: 26px;
   letter-spacing: 4px;
-  color: var(--text-primary);
+  color: #0d1a06;
 }
 
 .topbar-action {
   font-family: var(--font-mono);
   font-size: 13px;
+  font-weight: 700;
   letter-spacing: 1px;
-  color: var(--text-accent);
+  color: #2a5018;
   cursor: pointer;
   padding: 6px 0;
 }
@@ -337,15 +339,15 @@ body::before {
   font-family: var(--font-display);
   font-size: 32px;
   letter-spacing: 3px;
-  color: #2d4a1c;
+  color: #1a3010;
   line-height: 1;
 }
 
 .home-date {
   font-family: var(--font-mono);
   font-size: 13px;
-  font-weight: 600;
-  color: #4a6832;
+  font-weight: 700;
+  color: #2a4820;
   letter-spacing: 1px;
   margin-top: 6px;
 }
@@ -443,8 +445,8 @@ body::before {
 .nav-card-count {
   font-family: var(--font-mono);
   font-size: 12px;
-  font-weight: 600;
-  color: #4a6832;
+  font-weight: 700;
+  color: #1e3812;
   letter-spacing: 1px;
   margin-top: 4px;
 }
@@ -472,7 +474,7 @@ body::before {
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 3px;
-  color: #3a5028;
+  color: #1e3812;
   text-transform: uppercase;
   margin-bottom: 8px;
   display: flex;
@@ -508,15 +510,15 @@ body::before {
   font-size: 20px;
   font-weight: 700;
   letter-spacing: 1px;
-  color: #1a2410;
+  color: #0d1a06;
   text-transform: uppercase;
 }
 
 .item-sub {
   font-family: var(--font-mono);
   font-size: 13px;
-  font-weight: 600;
-  color: #3a5028;
+  font-weight: 700;
+  color: #1e3812;
   margin-top: 4px;
   letter-spacing: 0.5px;
 }
@@ -551,8 +553,8 @@ body::before {
   font-size: 15px;
 }
 .detail-row:last-child { border-bottom: none; }
-.detail-label { font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 1px; color: #4a6832; text-transform: uppercase; padding-top: 2px; }
-.detail-val { font-family: var(--font-body); font-size: 15px; font-weight: 600; color: #1a2410; text-align: right; max-width: 60%; }
+.detail-label { font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 1px; color: #1e3812; text-transform: uppercase; padding-top: 2px; }
+.detail-val { font-family: var(--font-body); font-size: 15px; font-weight: 700; color: #0d1a06; text-align: right; max-width: 60%; }
 
 .add-btn {
   display: flex;
@@ -562,12 +564,13 @@ body::before {
   width: 100%;
   padding: 14px;
   background: transparent;
-  border: 1px dashed var(--border-bright);
+  border: 1.5px dashed #4a7c2f;
   border-radius: 2px;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 13px;
+  font-weight: 700;
   letter-spacing: 2px;
-  color: var(--text-dim);
+  color: #2a5018;
   cursor: pointer;
   margin-top: 4px;
   text-transform: uppercase;
@@ -592,7 +595,7 @@ body::before {
   font-size: 17px;
   font-weight: 700;
   letter-spacing: 1px;
-  color: #2d4a1c;
+  color: #0d1a06;
   text-transform: uppercase;
 }
 
@@ -606,12 +609,12 @@ body::before {
 .load-tag {
   font-family: var(--font-mono);
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 1px;
   padding: 3px 8px;
-  background: #f0f5ea;
-  border: 1px solid var(--border);
-  color: #3a5028;
+  background: #e8f2de;
+  border: 1px solid #b8d4a0;
+  color: #1e3812;
   border-radius: 2px;
 }
 
@@ -638,9 +641,9 @@ body::before {
 .scope-note {
   font-family: var(--font-mono);
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 1px;
-  color: #4a6832;
+  color: #1e3812;
   margin-top: 6px;
 }
 
@@ -681,7 +684,7 @@ body::before {
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 2px;
-  color: #3a5028;
+  color: #1e3812;
   text-transform: uppercase;
   margin-bottom: 6px;
   display: block;
@@ -695,8 +698,8 @@ input, select, textarea {
   padding: 13px 14px;
   font-family: var(--font-mono);
   font-size: 15px;
-  font-weight: 600;
-  color: #1a2410;
+  font-weight: 700;
+  color: #0d1a06;
   outline: none;
   -webkit-appearance: none;
   letter-spacing: 0.5px;
@@ -865,12 +868,21 @@ select option { background: var(--bg-card); }
   font-weight: 700;
   letter-spacing: 1px;
   padding: 4px 10px;
-  background: #f0f5ea;
-  border: 1px solid var(--border);
-  color: #3a5028;
+  background: #e8f2de;
+  border: 1px solid #b8d4a0;
+  color: #1e3812;
   border-radius: 2px;
   margin: 2px;
 }
+
+
+/* SWIPE ACTIONS */
+.swipe-container { position: relative; overflow: hidden; margin-bottom: 8px; border-radius: 4px; }
+.swipe-actions { position: absolute; right: 0; top: 0; bottom: 0; display: flex; align-items: stretch; }
+.swipe-edit-btn { background: #2a5018; color: #fff; border: none; padding: 0 20px; font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 1px; cursor: pointer; display: flex; align-items: center; justify-content: center; min-width: 70px; }
+.swipe-delete-btn { background: #c0392b; color: #fff; border: none; padding: 0 20px; font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 1px; cursor: pointer; display: flex; align-items: center; justify-content: center; min-width: 70px; border-radius: 0 4px 4px 0; }
+.swipe-card { transition: transform 0.25s ease; background: var(--bg-card); }
+.swipe-card.swiped { transform: translateX(-140px); }
 
 /* ANIMATIONS */
 @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
@@ -1346,23 +1358,17 @@ function updateDots() {
   for (let i = 0; i < 4; i++) document.getElementById('d'+i).classList.toggle('filled', i < pinEntry.length);
 }
 function bioUnlock() {
-  if (window.PublicKeyCredential) {
-    document.getElementById('pin-error').style.color = 'var(--text-accent)';
-    document.getElementById('pin-error').textContent = 'AUTHENTICATING...';
-    setTimeout(() => {
-      document.getElementById('pin-error').textContent = '';
-      document.getElementById('pin-error').style.color = '';
-      goScreen('screen-home'); initHome();
-    }, 800);
-  } else {
-    document.getElementById('pin-error').style.color = 'var(--text-accent)';
-    document.getElementById('pin-error').textContent = 'AUTHENTICATING...';
-    setTimeout(() => {
-      document.getElementById('pin-error').textContent = '';
-      document.getElementById('pin-error').style.color = '';
-      goScreen('screen-home'); initHome();
-    }, 600);
-  }
+  const errEl = document.getElementById('pin-error');
+  errEl.style.color = '#b8cfa0';
+  errEl.textContent = 'AUTHENTICATING...';
+  // On HTTPS with WebAuthn support, this would trigger Face ID / Touch ID
+  // For now it simulates successful biometric unlock
+  setTimeout(() => {
+    errEl.textContent = '';
+    errEl.style.color = '';
+    goScreen('screen-home');
+    initHome();
+  }, 700);
 }
 
 // ── NAVIGATION ──
