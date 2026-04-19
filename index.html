@@ -10,7 +10,7 @@
 <meta name="theme-color" content="#4a7c2f">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
-<title>Ranger v7</title>
+<title>Ranger v8</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -909,7 +909,7 @@ select option { background: var(--bg-card); }
     </div>
     <div class="lock-title">RANGER</div>
     <div class="lock-subtitle">FIREARMS MANAGEMENT SYSTEM</div>
-    <div class="lock-subtitle" style="margin-top:6px;letter-spacing:2px;font-size:10px;opacity:0.7">VERSION 7</div>
+    <div class="lock-subtitle" style="margin-top:6px;letter-spacing:2px;font-size:10px;opacity:0.7">VERSION 8</div>
   </div>
   <div class="lock-divider"></div>
   <div class="pin-label">ENTER ACCESS CODE</div>
@@ -1555,6 +1555,12 @@ function initRange() {
   } else {
     sel.innerHTML = appData.firearms.map(f => `<option value="${f.id}">${f.make} ${f.model} (${f.caliber})</option>`).join('');
   }
+  // Pre-populate 3 blank rows if firearm has no refs yet
+  const f = getCurrentFirearm();
+  if (f && (!f.scopeRefs || f.scopeRefs.length === 0)) {
+    f.scopeRefs = [{dist:'',dial:''},{dist:'',dial:''},{dist:'',dial:''}];
+    save();
+  }
   renderRangeRefs();
 }
 
@@ -1576,12 +1582,17 @@ function renderRangeRefs() {
     listEl.innerHTML = '<div style="font-family:var(--font-mono);font-size:12px;font-weight:600;color:#8aaa78;padding:8px 0;letter-spacing:1px;text-align:center">NO ROWS YET — TAP + ADD ROW</div>';
     return;
   }
-  listEl.innerHTML = refs.map((r, i) => `
-    <div style="display:grid;grid-template-columns:1fr 1fr 40px;gap:6px;margin-bottom:6px;align-items:center">
-      <input type="number" value="${r.dist || ''}" onchange="updateRef(${i},'dist',this.value)" placeholder="e.g. 300" style="text-align:center;font-size:16px;font-weight:700">
-      <input type="number" step="0.01" value="${r.dial !== undefined ? r.dial : ''}" onchange="updateRef(${i},'dial',this.value)" placeholder="e.g. 1.6" style="text-align:center;font-size:16px;font-weight:700">
+  listEl.innerHTML = refs.map((r, i) => {
+    const distVal = (r.dist !== '' && r.dist !== undefined && r.dist !== null) ? r.dist : '';
+    const dialVal = (r.dial !== '' && r.dial !== undefined && r.dial !== null) ? r.dial : '';
+    const isEmpty = distVal === '' && dialVal === '';
+    const rowStyle = isEmpty ? 'opacity:0.5' : '';
+    return `<div style="display:grid;grid-template-columns:1fr 1fr 40px;gap:6px;margin-bottom:6px;align-items:center;${rowStyle}">
+      <input type="number" value="${distVal}" onchange="updateRef(${i},'dist',this.value)" placeholder="e.g. ${i===0?100:i===1?300:500}" style="text-align:center;font-size:16px;font-weight:700">
+      <input type="number" step="0.01" value="${dialVal}" onchange="updateRef(${i},'dial',this.value)" placeholder="e.g. ${i===0?'0.0':i===1?'1.6':'3.2'}" style="text-align:center;font-size:16px;font-weight:700">
       <button onclick="removeRef(${i})" style="width:36px;height:50px;background:#fdecea;border:1px solid #f5a9a9;border-radius:4px;font-family:var(--font-mono);font-size:14px;font-weight:700;color:#c0392b;cursor:pointer">✕</button>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
 function addRefPoint() {
@@ -1617,14 +1628,11 @@ function saveRangeRefs() {
 
 function getRefs() {
   const f = getCurrentFirearm();
-  if (!f) return [];
-  const refs = f.scopeRefs ? [...f.scopeRefs] : [];
-  // Include zero point
-  const zero = parseFloat(f.scopeZero);
-  if (!isNaN(zero) && !refs.find(r => r.dist === zero)) {
-    refs.push({ dist: zero, dial: 0 });
-  }
-  return refs;
+  if (!f || !f.scopeRefs) return [];
+  // Only return rows that have both dist and dial filled in
+  return f.scopeRefs
+    .filter(r => r.dist !== '' && r.dial !== '' && r.dist !== null && r.dial !== null && !isNaN(parseFloat(r.dist)) && !isNaN(parseFloat(r.dial)))
+    .map(r => ({ dist: parseFloat(r.dist), dial: parseFloat(r.dial) }));
 }
 function interpolate(refs, dist) {
   if (!refs.length) return null;
@@ -1642,6 +1650,23 @@ function calcRangeDial() {
   document.getElementById('range-dial-result').textContent = d.toFixed(2);
   document.getElementById('range-dial-note').textContent = 'DIAL SETTING FOR ' + dist + 'M';
 }
+var _corrDir = 'low';
+
+function setDir(dir) {
+  _corrDir = dir;
+  var btnLow = document.getElementById('btn-low');
+  var btnHigh = document.getElementById('btn-high');
+  if (!btnLow || !btnHigh) return;
+  if (dir === 'low') {
+    btnLow.style.background = '#2a5018'; btnLow.style.color = '#fff'; btnLow.style.borderColor = '#2a5018';
+    btnHigh.style.background = 'transparent'; btnHigh.style.color = '#2a5018'; btnHigh.style.borderColor = '#b8d4a0';
+  } else {
+    btnHigh.style.background = '#2a5018'; btnHigh.style.color = '#fff'; btnHigh.style.borderColor = '#2a5018';
+    btnLow.style.background = 'transparent'; btnLow.style.color = '#2a5018'; btnLow.style.borderColor = '#b8d4a0';
+  }
+  calcCorr2();
+}
+
 function calcCorr2() {
   const dist = parseFloat(document.getElementById('corr2-dist').value);
   const err = parseFloat(document.getElementById('corr2-err').value);
